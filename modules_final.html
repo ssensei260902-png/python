@@ -1,0 +1,938 @@
+<!-- MODULE 9: DATABASE INTEGRATION -->
+<div id="module9" class="module-content">
+    <h1>Module 9: Database Integration</h1>
+    <p class="module-intro">Learn to work with databases - the backbone of most applications!</p>
+
+    <section class="lesson">
+        <h2>9.1 SQLite Basics</h2>
+        <div class="explanation">
+            <p>SQLite is a lightweight database that's perfect for learning. It's built into Python!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Creating and Using a Database</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python">import sqlite3
+
+# Connect to database (creates if doesn't exist)
+conn = sqlite3.connect('students.db')
+cursor = conn.cursor()
+
+# Create table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS students (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        age INTEGER,
+        grade REAL,
+        email TEXT UNIQUE
+    )
+''')
+
+# Insert data
+cursor.execute('''
+    INSERT INTO students (name, age, grade, email)
+    VALUES (?, ?, ?, ?)
+''', ('Alice', 20, 3.8, 'alice@email.com'))
+
+# Insert multiple records
+students = [
+    ('Bob', 22, 3.5, 'bob@email.com'),
+    ('Charlie', 21, 3.9, 'charlie@email.com'),
+    ('Diana', 23, 3.7, 'diana@email.com')
+]
+cursor.executemany('''
+    INSERT INTO students (name, age, grade, email)
+    VALUES (?, ?, ?, ?)
+''', students)
+
+# Commit changes
+conn.commit()
+
+# Query data
+cursor.execute('SELECT * FROM students')
+all_students = cursor.fetchall()
+
+print("All students:")
+for student in all_students:
+    print(student)
+
+# Query with WHERE clause
+cursor.execute('SELECT * FROM students WHERE grade > ?', (3.6,))
+top_students = cursor.fetchall()
+
+print("\\nTop students (GPA > 3.6):")
+for student in top_students:
+    print(f"{student[1]}: GPA {student[3]}")
+
+# Close connection
+conn.close()</code></pre>
+            </div>
+            <button class="run-code" data-code="# Database operations (simulated)\nprint('Creating database...')\nprint('Creating table: students')\nstudents = [\n    (1, 'Alice', 20, 3.8, 'alice@email.com'),\n    (2, 'Bob', 22, 3.5, 'bob@email.com'),\n    (3, 'Charlie', 21, 3.9, 'charlie@email.com')\n]\nprint('\\nAll students:')\nfor s in students:\n    print(f'{s[1]}, Age: {s[2]}, GPA: {s[3]}')\ntop = [s for s in students if s[3] > 3.6]\nprint('\\nTop students:')\nfor s in top:\n    print(f'{s[1]}: GPA {s[3]}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>9.2 CRUD Operations</h2>
+        <div class="explanation">
+            <p>CRUD stands for Create, Read, Update, Delete - the fundamental database operations.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import sqlite3
+
+class StudentDatabase:
+    def __init__(self, db_name='students.db'):
+        self.conn = sqlite3.connect(db_name)
+        self.cursor = self.conn.cursor()
+        self.create_table()
+
+    def create_table(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS students (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                age INTEGER,
+                grade REAL
+            )
+        ''')
+        self.conn.commit()
+
+    def create(self, name, age, grade):
+        """Create - Insert new student"""
+        self.cursor.execute(
+            'INSERT INTO students (name, age, grade) VALUES (?, ?, ?)',
+            (name, age, grade)
+        )
+        self.conn.commit()
+        print(f"Added {name} to database")
+
+    def read_all(self):
+        """Read - Get all students"""
+        self.cursor.execute('SELECT * FROM students')
+        return self.cursor.fetchall()
+
+    def read_one(self, student_id):
+        """Read - Get one student"""
+        self.cursor.execute('SELECT * FROM students WHERE id = ?', (student_id,))
+        return self.cursor.fetchone()
+
+    def update(self, student_id, name=None, age=None, grade=None):
+        """Update - Modify student data"""
+        if name:
+            self.cursor.execute(
+                'UPDATE students SET name = ? WHERE id = ?',
+                (name, student_id)
+            )
+        if age:
+            self.cursor.execute(
+                'UPDATE students SET age = ? WHERE id = ?',
+                (age, student_id)
+            )
+        if grade:
+            self.cursor.execute(
+                'UPDATE students SET grade = ? WHERE id = ?',
+                (grade, student_id)
+            )
+        self.conn.commit()
+        print(f"Updated student ID {student_id}")
+
+    def delete(self, student_id):
+        """Delete - Remove student"""
+        self.cursor.execute('DELETE FROM students WHERE id = ?', (student_id,))
+        self.conn.commit()
+        print(f"Deleted student ID {student_id}")
+
+    def close(self):
+        self.conn.close()
+
+# Usage
+db = StudentDatabase()
+db.create('Alice', 20, 3.8)
+db.create('Bob', 22, 3.5)
+
+students = db.read_all()
+for student in students:
+    print(student)
+
+db.update(1, grade=3.9)
+db.delete(2)
+
+db.close()</code></pre>
+            </div>
+            <button class="run-code" data-code="# CRUD operations (simulated)\nclass StudentDatabase:\n    def __init__(self):\n        self.students = []\n        self.next_id = 1\n    def create(self, name, age, grade):\n        student = {'id': self.next_id, 'name': name, 'age': age, 'grade': grade}\n        self.students.append(student)\n        print(f'Added {name}')\n        self.next_id += 1\n    def read_all(self):\n        return self.students\ndb = StudentDatabase()\ndb.create('Alice', 20, 3.8)\ndb.create('Bob', 22, 3.5)\nfor s in db.read_all():\n    print(s)">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>9.3 Working with ORMs (SQLAlchemy)</h2>
+        <div class="explanation">
+            <p>ORMs (Object-Relational Mappers) let you work with databases using Python objects instead of SQL.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">from sqlalchemy import create_engine, Column, Integer, String, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# Create base class
+Base = declarative_base()
+
+# Define model
+class Student(Base):
+    __tablename__ = 'students'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    age = Column(Integer)
+    grade = Column(Float)
+
+    def __repr__(self):
+        return f"<Student(name='{self.name}', grade={self.grade})>"
+
+# Create engine and session
+engine = create_engine('sqlite:///school.db')
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Create records
+alice = Student(name='Alice', age=20, grade=3.8)
+bob = Student(name='Bob', age=22, grade=3.5)
+
+session.add(alice)
+session.add(bob)
+session.commit()
+
+# Query records
+all_students = session.query(Student).all()
+for student in all_students:
+    print(student)
+
+# Filter queries
+top_students = session.query(Student).filter(Student.grade > 3.6).all()
+print(f"\\nTop students: {top_students}")
+
+# Update
+alice = session.query(Student).filter_by(name='Alice').first()
+alice.grade = 3.9
+session.commit()
+
+# Delete
+session.delete(bob)
+session.commit()
+
+session.close()</code></pre>
+            </div>
+            <button class="run-code" data-code="# ORM example (simulated)\nclass Student:\n    def __init__(self, name, age, grade):\n        self.name = name\n        self.age = age\n        self.grade = grade\n    def __repr__(self):\n        return f'<Student({self.name}, {self.grade})>'\nalice = Student('Alice', 20, 3.8)\nbob = Student('Bob', 22, 3.5)\nstudents = [alice, bob]\nprint('All students:')\nfor s in students:\n    print(s)\ntop = [s for s in students if s.grade > 3.6]\nprint(f'\\nTop students: {top}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module8">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module10">Next Module: AI & ML →</button>
+    </div>
+</div>
+
+<!-- MODULE 10: AI & MACHINE LEARNING -->
+<div id="module10" class="module-content">
+    <h1>Module 10: AI & Machine Learning</h1>
+    <p class="module-intro">Begin your journey into AI and Machine Learning with Python!</p>
+
+    <section class="lesson">
+        <h2>10.1 Introduction to NumPy</h2>
+        <div class="explanation">
+            <p>NumPy is the foundation of scientific computing in Python. It provides efficient array operations.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: NumPy Basics</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python">import numpy as np
+
+# Create arrays
+arr1 = np.array([1, 2, 3, 4, 5])
+print(f"1D Array: {arr1}")
+
+arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+print(f"2D Array:\\n{arr2}")
+
+# Array operations (vectorized - fast!)
+print(f"\\nArray * 2: {arr1 * 2}")
+print(f"Array + 10: {arr1 + 10}")
+print(f"Array squared: {arr1 ** 2}")
+
+# Mathematical functions
+print(f"\\nMean: {np.mean(arr1)}")
+print(f"Median: {np.median(arr1)}")
+print(f"Std dev: {np.std(arr1)}")
+print(f"Sum: {np.sum(arr1)}")
+
+# Creating special arrays
+zeros = np.zeros((3, 3))
+ones = np.ones((2, 4))
+identity = np.eye(3)
+random_arr = np.random.rand(3, 3)
+
+print(f"\\nZeros:\\n{zeros}")
+print(f"\\nOnes:\\n{ones}")
+print(f"\\nIdentity:\\n{identity}")
+print(f"\\nRandom:\\n{random_arr}")
+
+# Array indexing and slicing
+arr = np.array([10, 20, 30, 40, 50])
+print(f"\\nElement at index 2: {arr[2]}")
+print(f"Slice [1:4]: {arr[1:4]}")
+print(f"Elements > 25: {arr[arr > 25]}")
+
+# Matrix operations
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+print(f"\\nMatrix A:\\n{A}")
+print(f"Matrix B:\\n{B}")
+print(f"\\nA + B:\\n{A + B}")
+print(f"\\nA * B (element-wise):\\n{A * B}")
+print(f"\\nA @ B (matrix multiplication):\\n{A @ B}")</code></pre>
+            </div>
+            <button class="run-code" data-code="# NumPy simulation using lists\narr = [1, 2, 3, 4, 5]\nprint(f'Array: {arr}')\nprint(f'Array * 2: {[x*2 for x in arr]}')\nprint(f'Array + 10: {[x+10 for x in arr]}')\nprint(f'Mean: {sum(arr)/len(arr)}')\nprint(f'Sum: {sum(arr)}')\nprint(f'Elements > 2: {[x for x in arr if x > 2]}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>10.2 Data Analysis with Pandas</h2>
+        <div class="explanation">
+            <p>Pandas provides powerful data structures for data analysis and manipulation.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import pandas as pd
+import numpy as np
+
+# Create DataFrame
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'age': [25, 30, 35, 28],
+    'salary': [50000, 60000, 75000, 55000],
+    'department': ['IT', 'HR', 'IT', 'Finance']
+}
+
+df = pd.DataFrame(data)
+print("DataFrame:")
+print(df)
+
+# Basic operations
+print(f"\\nDataFrame shape: {df.shape}")
+print(f"\\nColumn names: {df.columns.tolist()}")
+print(f"\\nData types:\\n{df.dtypes}")
+
+# Accessing data
+print(f"\\nAges: {df['age'].tolist()}")
+print(f"\\nFirst row:\\n{df.iloc[0]}")
+print(f"\\nPeople in IT:\\n{df[df['department'] == 'IT']}")
+
+# Statistics
+print(f"\\nAverage salary: ${df['salary'].mean():.2f}")
+print(f"Max salary: ${df['salary'].max()}")
+print(f"Min age: {df['age'].min()}")
+
+# Grouping
+print(f"\\nSalary by department:")
+print(df.groupby('department')['salary'].mean())
+
+# Adding columns
+df['bonus'] = df['salary'] * 0.1
+print(f"\\nWith bonus column:")
+print(df)
+
+# Filtering
+high_earners = df[df['salary'] > 55000]
+print(f"\\nHigh earners:")
+print(high_earners)
+
+# Sorting
+sorted_df = df.sort_values('salary', ascending=False)
+print(f"\\nSorted by salary:")
+print(sorted_df)</code></pre>
+            </div>
+            <button class="run-code" data-code="# Pandas simulation\ndata = [\n    {'name': 'Alice', 'age': 25, 'salary': 50000, 'dept': 'IT'},\n    {'name': 'Bob', 'age': 30, 'salary': 60000, 'dept': 'HR'},\n    {'name': 'Charlie', 'age': 35, 'salary': 75000, 'dept': 'IT'},\n    {'name': 'Diana', 'age': 28, 'salary': 55000, 'dept': 'Finance'}\n]\nprint('Data:')\nfor person in data:\n    print(person)\navg_salary = sum(p['salary'] for p in data) / len(data)\nprint(f'\\nAverage salary: ${avg_salary:.2f}')\nit_folks = [p for p in data if p['dept'] == 'IT']\nprint(f'\\nIT department: {len(it_folks)} people')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>10.3 Machine Learning Basics with Scikit-learn</h2>
+        <div class="explanation">
+            <p>Scikit-learn provides simple and efficient tools for machine learning.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+import numpy as np
+
+# Sample data: hours studied vs exam score
+hours = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).reshape(-1, 1)
+scores = np.array([50, 55, 60, 65, 70, 75, 80, 85, 90, 95])
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    hours, scores, test_size=0.2, random_state=42
+)
+
+# Create and train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+print("Model trained!")
+print(f"Coefficient: {model.coef_[0]:.2f}")
+print(f"Intercept: {model.intercept_:.2f}")
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+print(f"\\nPredictions vs Actual:")
+for actual, predicted in zip(y_test, y_pred):
+    print(f"Actual: {actual}, Predicted: {predicted:.2f}")
+
+# Evaluate model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"\\nMean Squared Error: {mse:.2f}")
+print(f"R² Score: {r2:.2f}")
+
+# Predict new values
+new_hours = np.array([[6.5], [7.5]])
+predictions = model.predict(new_hours)
+
+print(f"\\nIf you study 6.5 hours: {predictions[0]:.2f}")
+print(f"If you study 7.5 hours: {predictions[1]:.2f}")</code></pre>
+            </div>
+            <button class="run-code" data-code="# Machine learning simulation\nprint('Training linear regression model...')\nprint('Model: score = 5 * hours + 45')\nprint('\\nTraining complete!')\nprint('Coefficient: 5.00')\nprint('Intercept: 45.00')\nprint('\\nPredictions:')\ntest_hours = [6, 8, 10]\nfor h in test_hours:\n    score = 5 * h + 45\n    print(f'{h} hours study → Score: {score}')\nprint('\\nModel R² Score: 0.98 (excellent fit!)')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>10.4 Classification Example</h2>
+        <div class="explanation">
+            <p>Classification predicts categories. Let's build a simple classifier!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load famous Iris dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+
+print(f"Dataset shape: {X.shape}")
+print(f"Classes: {iris.target_names}")
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Create and train classifier
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+# Make predictions
+y_pred = knn.predict(X_test)
+
+# Evaluate
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\\nAccuracy: {accuracy:.2%}")
+
+print(f"\\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+# Predict new flower
+new_flower = [[5.1, 3.5, 1.4, 0.2]]
+prediction = knn.predict(new_flower)
+print(f"\\nNew flower predicted as: {iris.target_names[prediction[0]]}")</code></pre>
+            </div>
+            <button class="run-code" data-code="# Classification simulation\nprint('Loading Iris dataset...')\nprint('Dataset shape: (150, 4)')\nprint('Classes: [setosa, versicolor, virginica]')\nprint('\\nTraining K-Nearest Neighbors classifier...')\nprint('Training complete!')\nprint('\\nAccuracy: 95.56%')\nprint('\\nClassification Results:')\nprint('- Setosa: 100% accuracy')\nprint('- Versicolor: 92% accuracy')\nprint('- Virginica: 95% accuracy')\nprint('\\nNew flower prediction: Setosa')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module9">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module11">Next Module: Web Development →</button>
+    </div>
+</div>
+
+<!-- MODULE 11: WEB DEVELOPMENT -->
+<div id="module11" class="module-content">
+    <h1>Module 11: Web Development with Python</h1>
+    <p class="module-intro">Build web applications with Flask - a lightweight Python web framework!</p>
+
+    <section class="lesson">
+        <h2>11.1 Introduction to Flask</h2>
+        <div class="explanation">
+            <p>Flask is a micro web framework that makes it easy to build web applications.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">from flask import Flask, render_template, request, jsonify
+
+# Create Flask app
+app = Flask(__name__)
+
+# Simple route
+@app.route('/')
+def home():
+    return 'Hello, Flask!'
+
+# Route with variable
+@app.route('/user/<name>')
+def user(name):
+    return f'Hello, {name}!'
+
+# Template rendering
+@app.route('/welcome/<name>')
+def welcome(name):
+    return render_template('welcome.html', name=name)
+
+# POST request handling
+@app.route('/api/data', methods=['POST'])
+def handle_data():
+    data = request.json
+    return jsonify({
+        'status': 'success',
+        'received': data
+    })
+
+# Dynamic route with multiple parameters
+@app.route('/calculate/<int:a>/<int:b>')
+def calculate(a, b):
+    return jsonify({
+        'sum': a + b,
+        'product': a * b,
+        'difference': a - b
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# Access at: http://localhost:5000/</code></pre>
+            </div>
+            <button class="run-code" data-code="# Flask app simulation\nprint('Flask Web Server Starting...')\nprint('\\nRoutes registered:')\nprint('- GET  / → Home page')\nprint('- GET  /user/<name> → User greeting')\nprint('- GET  /welcome/<name> → Welcome page')\nprint('- POST /api/data → API endpoint')\nprint('- GET  /calculate/<a>/<b> → Calculator')\nprint('\\n* Server running on http://localhost:5000')\nprint('* Debug mode: ON')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>11.2 Building a REST API</h2>
+        <div class="explanation">
+            <p>REST APIs allow applications to communicate over HTTP. Let's build a simple TODO API!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+# In-memory database
+todos = [
+    {'id': 1, 'task': 'Learn Python', 'done': True},
+    {'id': 2, 'task': 'Build API', 'done': False}
+]
+
+# GET all todos
+@app.route('/api/todos', methods=['GET'])
+def get_todos():
+    return jsonify({'todos': todos})
+
+# GET single todo
+@app.route('/api/todos/<int:todo_id>', methods=['GET'])
+def get_todo(todo_id):
+    todo = next((t for t in todos if t['id'] == todo_id), None)
+    if todo:
+        return jsonify(todo)
+    return jsonify({'error': 'Todo not found'}), 404
+
+# CREATE todo
+@app.route('/api/todos', methods=['POST'])
+def create_todo():
+    new_todo = {
+        'id': len(todos) + 1,
+        'task': request.json['task'],
+        'done': False
+    }
+    todos.append(new_todo)
+    return jsonify(new_todo), 201
+
+# UPDATE todo
+@app.route('/api/todos/<int:todo_id>', methods=['PUT'])
+def update_todo(todo_id):
+    todo = next((t for t in todos if t['id'] == todo_id), None)
+    if todo:
+        todo['task'] = request.json.get('task', todo['task'])
+        todo['done'] = request.json.get('done', todo['done'])
+        return jsonify(todo)
+    return jsonify({'error': 'Todo not found'}), 404
+
+# DELETE todo
+@app.route('/api/todos/<int:todo_id>', methods=['DELETE'])
+def delete_todo(todo_id):
+    global todos
+    todos = [t for t in todos if t['id'] != todo_id]
+    return jsonify({'message': 'Todo deleted'})
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+            </div>
+            <button class="run-code" data-code="# REST API simulation\nclass TodoAPI:\n    def __init__(self):\n        self.todos = [\n            {'id': 1, 'task': 'Learn Python', 'done': True},\n            {'id': 2, 'task': 'Build API', 'done': False}\n        ]\n    def get_all(self):\n        return self.todos\n    def create(self, task):\n        new_todo = {'id': len(self.todos) + 1, 'task': task, 'done': False}\n        self.todos.append(new_todo)\n        return new_todo\napi = TodoAPI()\nprint('TODO API Ready!')\nprint('\\nEndpoints:')\nprint('- GET    /api/todos')\nprint('- POST   /api/todos')\nprint('- GET    /api/todos/<id>')\nprint('- PUT    /api/todos/<id>')\nprint('- DELETE /api/todos/<id>')\nprint(f'\\nCurrent todos: {len(api.todos)}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module10">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module12">Next Module: Automation →</button>
+    </div>
+</div>
+
+<!-- MODULE 12: AUTOMATION & ROBOTICS -->
+<div id="module12" class="module-content">
+    <h1>Module 12: Automation & Robotics</h1>
+    <p class="module-intro">Apply Python to real-world automation, scripting, and robotics!</p>
+
+    <section class="lesson">
+        <h2>12.1 File and Folder Automation</h2>
+        <div class="explanation">
+            <p>Automate file operations to save time and reduce errors!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import os
+import shutil
+from pathlib import Path
+
+# Working with paths
+current_dir = Path.cwd()
+print(f"Current directory: {current_dir}")
+
+# Create directories
+Path("project/src/utils").mkdir(parents=True, exist_ok=True)
+print("Created directory structure")
+
+# List files
+for file in Path('.').glob('*.txt'):
+    print(f"Found: {file}")
+
+# File operations
+def organize_files(source_dir):
+    """Organize files by extension"""
+    source = Path(source_dir)
+
+    for file in source.iterdir():
+        if file.is_file():
+            # Get extension
+            ext = file.suffix[1:]  # Remove the dot
+            if ext:
+                # Create folder for extension
+                dest_folder = source / ext
+                dest_folder.mkdir(exist_ok=True)
+
+                # Move file
+                shutil.move(str(file), str(dest_folder / file.name))
+                print(f"Moved {file.name} to {ext}/")
+
+# Batch rename files
+def batch_rename(directory, old_text, new_text):
+    """Rename multiple files"""
+    path = Path(directory)
+    for file in path.iterdir():
+        if file.is_file() and old_text in file.name:
+            new_name = file.name.replace(old_text, new_text)
+            file.rename(path / new_name)
+            print(f"Renamed: {file.name} → {new_name}")
+
+# Search files by content
+def search_in_files(directory, search_term):
+    """Search for text in files"""
+    results = []
+    for file in Path(directory).rglob('*.txt'):
+        try:
+            content = file.read_text()
+            if search_term in content:
+                results.append(file)
+                print(f"Found in: {file}")
+        except Exception as e:
+            print(f"Error reading {file}: {e}")
+    return results
+
+# Example usage:
+# organize_files('downloads')
+# batch_rename('photos', 'IMG', 'Photo')
+# search_in_files('documents', 'Python')</code></pre>
+            </div>
+            <button class="run-code" data-code="# File automation simulation\nimport os\nprint('File Automation Examples:')\nprint('\\n1. Organizing files by extension...')\nfiles = ['report.pdf', 'photo.jpg', 'data.csv', 'notes.txt']\nfor f in files:\n    ext = f.split('.')[-1]\n    print(f'   Moving {f} to {ext}/ folder')\nprint('\\n2. Batch renaming...')\nold_files = ['IMG_001.jpg', 'IMG_002.jpg', 'IMG_003.jpg']\nfor f in old_files:\n    new = f.replace('IMG', 'Photo')\n    print(f'   {f} → {new}')\nprint('\\nAutomation complete!')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>12.2 Web Scraping</h2>
+        <div class="explanation">
+            <p>Extract data from websites automatically using BeautifulSoup!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import requests
+from bs4 import BeautifulSoup
+
+# Fetch webpage
+url = 'https://example.com'
+response = requests.get(url)
+html = response.text
+
+# Parse HTML
+soup = BeautifulSoup(html, 'html.parser')
+
+# Find elements
+title = soup.find('title').text
+print(f"Page title: {title}")
+
+# Find all links
+links = soup.find_all('a')
+print(f"\\nFound {len(links)} links:")
+for link in links[:5]:  # First 5 links
+    href = link.get('href')
+    text = link.text.strip()
+    print(f"- {text}: {href}")
+
+# Find by CSS class
+articles = soup.find_all('div', class_='article')
+for article in articles:
+    heading = article.find('h2').text
+    print(f"Article: {heading}")
+
+# Find by ID
+main_content = soup.find(id='main-content')
+
+# Advanced scraping example
+def scrape_product_info(url):
+    """Scrape product information"""
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    product = {
+        'name': soup.find('h1', class_='product-title').text,
+        'price': soup.find('span', class_='price').text,
+        'description': soup.find('div', class_='description').text,
+        'rating': soup.find('span', class_='rating').text
+    }
+
+    return product
+
+# Scrape table data
+def scrape_table(url):
+    """Extract data from HTML table"""
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    table = soup.find('table')
+    data = []
+
+    for row in table.find_all('tr')[1:]:  # Skip header
+        cols = row.find_all('td')
+        data.append([col.text.strip() for col in cols])
+
+    return data
+
+# Remember: Always respect robots.txt and rate limits!</code></pre>
+            </div>
+            <button class="run-code" data-code="# Web scraping simulation\nprint('Web Scraping Example:')\nprint('\\nFetching: https://example.com')\nprint('Status: 200 OK')\nprint('\\nPage title: Example Domain')\nprint('\\nFound 3 links:')\nlinks = [\n    ('Home', '/home'),\n    ('About', '/about'),\n    ('Contact', '/contact')\n]\nfor text, href in links:\n    print(f'- {text}: {href}')\nprint('\\nProduct Info:')\nproduct = {'name': 'Python Book', 'price': '$49.99', 'rating': '4.8/5'}\nfor key, val in product.items():\n    print(f'{key}: {val}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>12.3 Task Scheduling and Automation</h2>
+        <div class="explanation">
+            <p>Schedule tasks to run automatically at specific times!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import schedule
+import time
+from datetime import datetime
+
+# Simple scheduled task
+def job():
+    print(f"Task executed at {datetime.now()}")
+
+# Schedule tasks
+schedule.every(10).seconds.do(job)
+schedule.every().hour.do(job)
+schedule.every().day.at("10:30").do(job)
+schedule.every().monday.do(job)
+schedule.every().wednesday.at("13:15").do(job)
+
+# Task with parameters
+def greet(name):
+    print(f"Hello, {name}!")
+
+schedule.every().day.at("09:00").do(greet, name="Alice")
+
+# Real-world examples
+def backup_database():
+    print("Backing up database...")
+    # Backup code here
+    print("Backup complete!")
+
+def send_report():
+    print("Generating report...")
+    # Report generation code
+    print("Report sent!")
+
+def cleanup_temp_files():
+    print("Cleaning temporary files...")
+    # Cleanup code
+    print("Cleanup complete!")
+
+# Schedule real tasks
+schedule.every().day.at("02:00").do(backup_database)
+schedule.every().friday.at("17:00").do(send_report)
+schedule.every().hour.do(cleanup_temp_files)
+
+# Run scheduler
+print("Scheduler started...")
+print("Scheduled tasks:")
+for job in schedule.get_jobs():
+    print(f"- {job}")
+
+# In a real application:
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)</code></pre>
+            </div>
+            <button class="run-code" data-code="# Task scheduling simulation\nfrom datetime import datetime\nprint('Task Scheduler Active')\nprint(f'Current time: {datetime.now().strftime(\"%H:%M:%S\")}')\nprint('\\nScheduled tasks:')\ntasks = [\n    ('Database backup', 'Every day at 02:00'),\n    ('Send report', 'Every Friday at 17:00'),\n    ('Cleanup temp files', 'Every hour'),\n    ('System health check', 'Every 30 minutes')\n]\nfor task, schedule in tasks:\n    print(f'- {task}: {schedule}')\nprint('\\nScheduler running... (Press Ctrl+C to stop)')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>12.4 Introduction to Robotics with Python</h2>
+        <div class="explanation">
+            <p>Control robots and hardware devices using Python!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Raspberry Pi GPIO control (simulated)
+# import RPi.GPIO as GPIO
+
+class Robot:
+    def __init__(self):
+        self.position = {'x': 0, 'y': 0}
+        self.direction = 'N'  # North
+        print("Robot initialized")
+
+    def move_forward(self, distance):
+        if self.direction == 'N':
+            self.position['y'] += distance
+        elif self.direction == 'S':
+            self.position['y'] -= distance
+        elif self.direction == 'E':
+            self.position['x'] += distance
+        elif self.direction == 'W':
+            self.position['x'] -= distance
+        print(f"Moved forward {distance} units")
+        print(f"Position: {self.position}")
+
+    def turn_left(self):
+        directions = ['N', 'W', 'S', 'E']
+        idx = directions.index(self.direction)
+        self.direction = directions[(idx + 1) % 4]
+        print(f"Turned left, now facing {self.direction}")
+
+    def turn_right(self):
+        directions = ['N', 'E', 'S', 'W']
+        idx = directions.index(self.direction)
+        self.direction = directions[(idx + 1) % 4]
+        print(f"Turned right, now facing {self.direction}")
+
+    def get_status(self):
+        return {
+            'position': self.position,
+            'direction': self.direction
+        }
+
+# Create and control robot
+robot = Robot()
+robot.move_forward(5)
+robot.turn_right()
+robot.move_forward(3)
+robot.turn_left()
+robot.move_forward(2)
+
+status = robot.get_status()
+print(f"\\nFinal status: {status}")
+
+# Sensor reading simulation
+class Sensor:
+    def __init__(self, name):
+        self.name = name
+
+    def read_distance(self):
+        import random
+        return random.uniform(0, 100)
+
+    def read_temperature(self):
+        import random
+        return random.uniform(20, 30)
+
+sensor = Sensor("ultrasonic")
+print(f"\\nDistance: {sensor.read_distance():.2f} cm")
+print(f"Temperature: {sensor.read_temperature():.2f}°C")</code></pre>
+            </div>
+            <button class="run-code" data-code="# Robot control simulation\nclass Robot:\n    def __init__(self):\n        self.position = {'x': 0, 'y': 0}\n        self.direction = 'N'\n        print('🤖 Robot initialized')\n    def move_forward(self, distance):\n        if self.direction == 'N':\n            self.position['y'] += distance\n        print(f'Moved forward {distance} units')\n        print(f'Position: {self.position}')\n    def turn_right(self):\n        directions = ['N', 'E', 'S', 'W']\n        idx = directions.index(self.direction)\n        self.direction = directions[(idx + 1) % 4]\n        print(f'Turned right, facing {self.direction}')\nrobot = Robot()\nrobot.move_forward(5)\nrobot.turn_right()\nrobot.move_forward(3)">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="practice">
+        <h2>🎯 Final Project Ideas</h2>
+
+        <div class="exercise">
+            <h3>Project 1: Personal Assistant Bot</h3>
+            <p>Create a bot that automates your daily tasks: file organization, email sorting, data backups, etc.</p>
+        </div>
+
+        <div class="exercise">
+            <h3>Project 2: Data Dashboard</h3>
+            <p>Build a web dashboard that visualizes data from APIs, databases, or CSV files using Flask and charts.</p>
+        </div>
+
+        <div class="exercise">
+            <h3>Project 3: Machine Learning App</h3>
+            <p>Create an ML model for prediction (house prices, stock prices, etc.) with a web interface.</p>
+        </div>
+
+        <div class="exercise">
+            <h3>Project 4: IoT Controller</h3>
+            <p>Build a system to control smart devices or simulate a home automation system.</p>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module11">← Previous Module</button>
+        <button class="nav-btn" disabled>🎉 Course Complete!</button>
+    </div>
+</div>

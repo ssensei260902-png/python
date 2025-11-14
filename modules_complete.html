@@ -1,0 +1,685 @@
+<!-- MODULE 4: FUNCTIONS AND SCOPE -->
+<div id="module4" class="module-content">
+    <h1>Module 4: Functions and Scope</h1>
+    <p class="module-intro">Learn to write reusable, modular code with functions - the building blocks of professional programming!</p>
+
+    <section class="lesson">
+        <h2>4.1 What Are Functions?</h2>
+        <div class="explanation">
+            <p>Functions are reusable blocks of code that perform specific tasks. Think of them as mini-programs within your program!</p>
+
+            <div class="info-box">
+                <h4>💡 Why Use Functions?</h4>
+                <ul>
+                    <li><strong>Reusability:</strong> Write once, use many times</li>
+                    <li><strong>Organization:</strong> Break complex problems into smaller pieces</li>
+                    <li><strong>Maintainability:</strong> Fix bugs in one place</li>
+                    <li><strong>Abstraction:</strong> Hide complexity behind simple interfaces</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Basic Function</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Defining a function
+def greet():
+    print("Hello, World!")
+    print("Welcome to Python!")
+
+# Calling the function
+greet()
+greet()  # Can call multiple times!
+
+# Function with parameters
+def greet_person(name):
+    print(f"Hello, {name}!")
+    print(f"Nice to meet you, {name}!")
+
+greet_person("Alice")
+greet_person("Bob")
+
+# Function with multiple parameters
+def introduce(name, age, city):
+    print(f"My name is {name}")
+    print(f"I am {age} years old")
+    print(f"I live in {city}")
+
+introduce("Alice", 25, "New York")</code></pre>
+            </div>
+            <button class="run-code" data-code="def greet():\n    print('Hello, World!')\n    print('Welcome to Python!')\ngreet()\ngreet()\ndef greet_person(name):\n    print(f'Hello, {name}!')\ngreet_person('Alice')\ngreet_person('Bob')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>4.2 Return Values</h2>
+        <div class="explanation">
+            <p>Functions can return values using the <code>return</code> statement. This allows functions to compute and send back results.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Functions with Return Values</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Function that returns a value
+def add(a, b):
+    result = a + b
+    return result
+
+sum_result = add(5, 3)
+print(f"5 + 3 = {sum_result}")
+
+# Function with multiple return values (returns tuple)
+def calculate(a, b):
+    sum_val = a + b
+    diff = a - b
+    product = a * b
+    quotient = a / b if b != 0 else None
+    return sum_val, diff, product, quotient
+
+# Unpack the results
+s, d, p, q = calculate(10, 5)
+print(f"Sum: {s}, Diff: {d}, Product: {p}, Quotient: {q}")
+
+# Real-world example: Temperature converter
+def celsius_to_fahrenheit(celsius):
+    fahrenheit = (celsius * 9/5) + 32
+    return fahrenheit
+
+temp_c = 25
+temp_f = celsius_to_fahrenheit(temp_c)
+print(f"{temp_c}°C = {temp_f}°F")
+
+# Function that returns boolean
+def is_even(number):
+    return number % 2 == 0
+
+print(f"Is 10 even? {is_even(10)}")
+print(f"Is 7 even? {is_even(7)}")</code></pre>
+            </div>
+            <button class="run-code" data-code="def add(a, b):\n    return a + b\nresult = add(5, 3)\nprint(f'5 + 3 = {result}')\ndef is_even(number):\n    return number % 2 == 0\nprint(f'Is 10 even? {is_even(10)}')\nprint(f'Is 7 even? {is_even(7)}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>4.3 Default Arguments and Keyword Arguments</h2>
+        <div class="explanation">
+            <p>Python allows you to set default values for parameters and call functions using keyword arguments.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Default arguments
+def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+greet("Alice")              # Uses default greeting
+greet("Bob", "Hi")         # Uses custom greeting
+greet("Charlie", "Hey")    # Uses custom greeting
+
+# Keyword arguments (can be in any order!)
+def create_profile(name, age, city, country):
+    print(f"{name}, {age} years old")
+    print(f"Lives in {city}, {country}")
+
+# Using keyword arguments
+create_profile(name="Alice", age=25, city="NYC", country="USA")
+create_profile(age=30, country="UK", name="Bob", city="London")
+
+# Mix positional and keyword arguments
+create_profile("Charlie", age=28, city="Paris", country="France")
+
+# *args - Variable number of arguments
+def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(sum_all(1, 2, 3))           # 6
+print(sum_all(10, 20, 30, 40))   # 100
+
+# **kwargs - Variable number of keyword arguments
+def print_info(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+print_info(name="Alice", age=25, city="NYC", job="Engineer")</code></pre>
+            </div>
+            <button class="run-code" data-code="def greet(name, greeting='Hello'):\n    print(f'{greeting}, {name}!')\ngreet('Alice')\ngreet('Bob', 'Hi')\ndef sum_all(*numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total\nprint('Sum:', sum_all(1, 2, 3))\nprint('Sum:', sum_all(10, 20, 30, 40))">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>4.4 Scope and Lifetime of Variables</h2>
+        <div class="explanation">
+            <p>Scope determines where variables can be accessed. Python has local, enclosing, global, and built-in scopes (LEGB rule).</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Global variable
+global_var = "I'm global"
+
+def my_function():
+    # Local variable
+    local_var = "I'm local"
+    print(global_var)  # Can access global
+    print(local_var)   # Can access local
+
+my_function()
+# print(local_var)  # Error! Local var doesn't exist here
+
+# Modifying global variables
+count = 0
+
+def increment():
+    global count  # Declare we're using global variable
+    count += 1
+    print(f"Count: {count}")
+
+increment()  # Count: 1
+increment()  # Count: 2
+increment()  # Count: 3
+
+# Best practice: Avoid global variables, use return instead
+def increment_better(current_count):
+    return current_count + 1
+
+my_count = 0
+my_count = increment_better(my_count)
+my_count = increment_better(my_count)
+print(f"My count: {my_count}")
+
+# Enclosing scope (nested functions)
+def outer():
+    x = "outer"
+
+    def inner():
+        x = "inner"
+        print(f"Inner x: {x}")
+
+    inner()
+    print(f"Outer x: {x}")
+
+outer()</code></pre>
+            </div>
+            <button class="run-code" data-code="count = 0\ndef increment():\n    global count\n    count += 1\n    print(f'Count: {count}')\nincrement()\nincrement()\nincrement()">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>4.5 Lambda Functions</h2>
+        <div class="explanation">
+            <p>Lambda functions are small, anonymous functions defined with the <code>lambda</code> keyword. Perfect for simple operations!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Regular function
+def square(x):
+    return x ** 2
+
+# Lambda function (one-liner!)
+square_lambda = lambda x: x ** 2
+
+print(square(5))         # 25
+print(square_lambda(5))  # 25
+
+# Lambda with multiple arguments
+add = lambda a, b: a + b
+print(add(3, 7))  # 10
+
+# Using lambda with built-in functions
+numbers = [1, 2, 3, 4, 5]
+
+# Map: Apply function to each element
+squared = list(map(lambda x: x ** 2, numbers))
+print(f"Squared: {squared}")
+
+# Filter: Keep elements that match condition
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Evens: {evens}")
+
+# Sorted with custom key
+students = [
+    {"name": "Alice", "grade": 85},
+    {"name": "Bob", "grade": 92},
+    {"name": "Charlie", "grade": 78}
+]
+
+sorted_students = sorted(students, key=lambda s: s["grade"], reverse=True)
+for student in sorted_students:
+    print(f"{student['name']}: {student['grade']}")</code></pre>
+            </div>
+            <button class="run-code" data-code="square = lambda x: x ** 2\nprint('Square of 5:', square(5))\nnumbers = [1, 2, 3, 4, 5]\nsquared = list(map(lambda x: x ** 2, numbers))\nprint('Squared:', squared)\nevens = list(filter(lambda x: x % 2 == 0, numbers))\nprint('Evens:', evens)">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>4.6 Recursion</h2>
+        <div class="explanation">
+            <p>Recursion is when a function calls itself. Powerful for solving problems that can be broken into smaller, similar problems!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Factorial using recursion
+def factorial(n):
+    # Base case: factorial of 0 or 1 is 1
+    if n <= 1:
+        return 1
+    # Recursive case
+    return n * factorial(n - 1)
+
+print(f"5! = {factorial(5)}")  # 120
+
+# Fibonacci sequence
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print("Fibonacci sequence:")
+for i in range(10):
+    print(fibonacci(i), end=" ")
+print()
+
+# Countdown using recursion
+def countdown(n):
+    if n <= 0:
+        print("Blast off!")
+    else:
+        print(n)
+        countdown(n - 1)
+
+countdown(5)
+
+# Real-world: Calculate power
+def power(base, exp):
+    if exp == 0:
+        return 1
+    return base * power(base, exp - 1)
+
+print(f"2^8 = {power(2, 8)}")</code></pre>
+            </div>
+            <button class="run-code" data-code="def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\nprint('5! =', factorial(5))\ndef countdown(n):\n    if n <= 0:\n        print('Blast off!')\n    else:\n        print(n)\n        countdown(n - 1)\ncountdown(5)">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="practice">
+        <h2>🎯 Practice Exercises</h2>
+
+        <div class="exercise">
+            <h3>Exercise 1: Prime Number Checker</h3>
+            <p>Write a function that checks if a number is prime. Return True if prime, False otherwise.</p>
+            <div class="code-editor">
+                <textarea class="practice-code" placeholder="def is_prime(n):
+    # Your code here
+    pass
+
+# Test it
+print(is_prime(17))  # Should print True
+print(is_prime(10))  # Should print False"></textarea>
+                <button class="run-practice">▶ Run My Code</button>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 2: List Statistics</h3>
+            <p>Create a function that takes a list of numbers and returns min, max, average, and sum.</p>
+            <div class="code-editor">
+                <textarea class="practice-code" placeholder="def get_stats(numbers):
+    # Return tuple: (min, max, avg, sum)
+    pass
+
+# Test
+stats = get_stats([1, 2, 3, 4, 5])
+print(stats)"></textarea>
+                <button class="run-practice">▶ Run My Code</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module3">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module5">Next Module: OOP →</button>
+    </div>
+</div>
+
+<!-- MODULE 5: OBJECT-ORIENTED PROGRAMMING -->
+<div id="module5" class="module-content">
+    <h1>Module 5: Object-Oriented Programming</h1>
+    <p class="module-intro">Master OOP - the paradigm used in most real-world applications. Learn to create and use classes and objects!</p>
+
+    <section class="lesson">
+        <h2>5.1 Introduction to OOP</h2>
+        <div class="explanation">
+            <p>Object-Oriented Programming (OOP) organizes code around objects that combine data and behavior. It's like creating blueprints (classes) and building things from them (objects).</p>
+
+            <div class="info-box">
+                <h4>💡 Four Pillars of OOP</h4>
+                <ul>
+                    <li><strong>Encapsulation:</strong> Bundling data and methods together</li>
+                    <li><strong>Inheritance:</strong> Creating new classes from existing ones</li>
+                    <li><strong>Polymorphism:</strong> Same interface, different implementations</li>
+                    <li><strong>Abstraction:</strong> Hiding complex implementation details</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Your First Class</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Defining a class
+class Dog:
+    # Constructor (initializer)
+    def __init__(self, name, age):
+        self.name = name  # Instance variable
+        self.age = age
+
+    # Instance method
+    def bark(self):
+        print(f"{self.name} says: Woof!")
+
+    def get_info(self):
+        print(f"{self.name} is {self.age} years old")
+
+# Creating objects (instances)
+dog1 = Dog("Buddy", 3)
+dog2 = Dog("Max", 5)
+
+# Using objects
+dog1.bark()         # Buddy says: Woof!
+dog2.bark()         # Max says: Woof!
+dog1.get_info()     # Buddy is 3 years old
+dog2.get_info()     # Max is 5 years old
+
+# Accessing attributes
+print(f"Dog 1's name: {dog1.name}")
+print(f"Dog 2's age: {dog2.age}")</code></pre>
+            </div>
+            <button class="run-code" data-code="class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n    def bark(self):\n        print(f'{self.name} says: Woof!')\n    def get_info(self):\n        print(f'{self.name} is {self.age} years old')\ndog1 = Dog('Buddy', 3)\ndog2 = Dog('Max', 5)\ndog1.bark()\ndog2.bark()\ndog1.get_info()">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>5.2 Class vs Instance Variables</h2>
+        <div class="explanation">
+            <p>Class variables are shared by all instances. Instance variables are unique to each object.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">class BankAccount:
+    # Class variable (shared by all instances)
+    bank_name = "Python Bank"
+    total_accounts = 0
+
+    def __init__(self, owner, balance=0):
+        # Instance variables (unique to each object)
+        self.owner = owner
+        self.balance = balance
+        BankAccount.total_accounts += 1
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited ${amount}. New balance: ${self.balance}")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient funds!")
+        else:
+            self.balance -= amount
+            print(f"Withdrew ${amount}. New balance: ${self.balance}")
+
+    def get_balance(self):
+        print(f"{self.owner}'s balance: ${self.balance}")
+
+# Create accounts
+acc1 = BankAccount("Alice", 1000)
+acc2 = BankAccount("Bob", 500)
+
+# Use instance methods
+acc1.deposit(500)
+acc1.withdraw(200)
+acc1.get_balance()
+
+acc2.deposit(1000)
+acc2.get_balance()
+
+# Access class variable
+print(f"Bank: {BankAccount.bank_name}")
+print(f"Total accounts: {BankAccount.total_accounts}")</code></pre>
+            </div>
+            <button class="run-code" data-code="class BankAccount:\n    bank_name = 'Python Bank'\n    total_accounts = 0\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n        BankAccount.total_accounts += 1\n    def deposit(self, amount):\n        self.balance += amount\n        print(f'Deposited ${amount}. Balance: ${self.balance}')\nacc1 = BankAccount('Alice', 1000)\nacc2 = BankAccount('Bob', 500)\nacc1.deposit(500)\nprint(f'Total accounts: {BankAccount.total_accounts}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>5.3 Inheritance</h2>
+        <div class="explanation">
+            <p>Inheritance allows you to create new classes based on existing ones, inheriting their attributes and methods.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Parent class (Base class)
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+
+    def make_sound(self):
+        print(f"{self.name} makes a sound")
+
+    def info(self):
+        print(f"{self.name} is a {self.species}")
+
+# Child class (Derived class)
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name, "Dog")  # Call parent constructor
+        self.breed = breed
+
+    # Override parent method
+    def make_sound(self):
+        print(f"{self.name} says: Woof!")
+
+    # New method specific to Dog
+    def fetch(self):
+        print(f"{self.name} is fetching the ball!")
+
+class Cat(Animal):
+    def __init__(self, name, color):
+        super().__init__(name, "Cat")
+        self.color = color
+
+    def make_sound(self):
+        print(f"{self.name} says: Meow!")
+
+    def climb(self):
+        print(f"{self.name} is climbing a tree!")
+
+# Create instances
+dog = Dog("Buddy", "Golden Retriever")
+cat = Cat("Whiskers", "Orange")
+
+# Use inherited and new methods
+dog.info()          # Inherited from Animal
+dog.make_sound()    # Overridden in Dog
+dog.fetch()         # Specific to Dog
+
+cat.info()
+cat.make_sound()
+cat.climb()</code></pre>
+            </div>
+            <button class="run-code" data-code="class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n    def make_sound(self):\n        print(f'{self.name} makes a sound')\n    def info(self):\n        print(f'{self.name} is a {self.species}')\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        super().__init__(name, 'Dog')\n        self.breed = breed\n    def make_sound(self):\n        print(f'{self.name} says: Woof!')\ndog = Dog('Buddy', 'Golden Retriever')\ndog.info()\ndog.make_sound()">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>5.4 Special Methods (Magic Methods)</h2>
+        <div class="explanation">
+            <p>Special methods (dunder methods - double underscore) allow you to define behavior for built-in operations.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+
+    # String representation for users
+    def __str__(self):
+        return f"'{self.title}' by {self.author}"
+
+    # String representation for developers
+    def __repr__(self):
+        return f"Book('{self.title}', '{self.author}', {self.pages})"
+
+    # Length of book
+    def __len__(self):
+        return self.pages
+
+    # Comparison operators
+    def __eq__(self, other):
+        return self.pages == other.pages
+
+    def __lt__(self, other):
+        return self.pages < other.pages
+
+book1 = Book("Python Mastery", "John Doe", 300)
+book2 = Book("Advanced Python", "Jane Smith", 450)
+
+print(str(book1))        # Uses __str__
+print(repr(book1))       # Uses __repr__
+print(f"Pages: {len(book1)}")  # Uses __len__
+
+if book1 < book2:
+    print(f"{book1.title} has fewer pages")
+
+# More magic methods example
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+
+v1 = Vector(2, 3)
+v2 = Vector(5, 7)
+v3 = v1 + v2  # Uses __add__
+print(v3)     # Vector(7, 10)</code></pre>
+            </div>
+            <button class="run-code" data-code="class Book:\n    def __init__(self, title, author, pages):\n        self.title = title\n        self.author = author\n        self.pages = pages\n    def __str__(self):\n        return f\"'{self.title}' by {self.author}\"\n    def __len__(self):\n        return self.pages\nbook = Book('Python Mastery', 'John Doe', 300)\nprint(str(book))\nprint(f'Pages: {len(book)}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>5.5 Properties and Encapsulation</h2>
+        <div class="explanation">
+            <p>Use properties to control access to attributes and maintain encapsulation.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">class Temperature:
+    def __init__(self, celsius):
+        self._celsius = celsius  # Protected attribute
+
+    @property
+    def celsius(self):
+        return self._celsius
+
+    @celsius.setter
+    def celsius(self, value):
+        if value < -273.15:
+            raise ValueError("Temperature below absolute zero!")
+        self._celsius = value
+
+    @property
+    def fahrenheit(self):
+        return (self._celsius * 9/5) + 32
+
+    @fahrenheit.setter
+    def fahrenheit(self, value):
+        self.celsius = (value - 32) * 5/9
+
+# Using properties
+temp = Temperature(25)
+print(f"{temp.celsius}°C = {temp.fahrenheit}°F")
+
+temp.celsius = 0
+print(f"{temp.celsius}°C = {temp.fahrenheit}°F")
+
+temp.fahrenheit = 100
+print(f"{temp.celsius}°C = {temp.fahrenheit}°F")
+
+# This would raise an error:
+# temp.celsius = -300  # ValueError!</code></pre>
+            </div>
+            <button class="run-code" data-code="class Temperature:\n    def __init__(self, celsius):\n        self._celsius = celsius\n    @property\n    def celsius(self):\n        return self._celsius\n    @property\n    def fahrenheit(self):\n        return (self._celsius * 9/5) + 32\ntemp = Temperature(25)\nprint(f'{temp.celsius}°C = {temp.fahrenheit}°F')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="practice">
+        <h2>🎯 Practice Exercises</h2>
+
+        <div class="exercise">
+            <h3>Exercise 1: Student Class</h3>
+            <p>Create a Student class with name, grades list, and methods to add grades and calculate average.</p>
+            <div class="code-editor">
+                <textarea class="practice-code" placeholder="class Student:
+    def __init__(self, name):
+        # Your code here
+        pass
+
+    def add_grade(self, grade):
+        pass
+
+    def get_average(self):
+        pass
+
+# Test
+s = Student('Alice')
+s.add_grade(90)
+s.add_grade(85)
+print(s.get_average())"></textarea>
+                <button class="run-practice">▶ Run My Code</button>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 2: Shape Inheritance</h3>
+            <p>Create a Shape base class and Circle, Rectangle subclasses with area() methods.</p>
+            <div class="code-editor">
+                <textarea class="practice-code" placeholder="class Shape:
+    pass
+
+class Circle(Shape):
+    pass
+
+class Rectangle(Shape):
+    pass"></textarea>
+                <button class="run-practice">▶ Run My Code</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module4">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module6">Next Module: File Handling →</button>
+    </div>
+</div>

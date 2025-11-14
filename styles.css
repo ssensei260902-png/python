@@ -1,0 +1,666 @@
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #3776ab;
+    --secondary-color: #ffd43b;
+    --dark-bg: #1e1e1e;
+    --light-bg: #ffffff;
+    --code-bg: #282c34;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --border-color: #e0e0e0;
+    --sidebar-width: 300px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: #f5f5f5;
+}
+
+/* ===== Container Layout ===== */
+.container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== Sidebar Navigation ===== */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(135deg, var(--primary-color), #2c5f8d);
+    color: white;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Progress Tracker */
+.progress-tracker {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-tracker h3 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.progress-bar {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    height: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--secondary-color), #ffed4e);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--dark-bg);
+    font-size: 0.85rem;
+}
+
+/* Module List */
+.module-list {
+    padding: 1.5rem;
+}
+
+.module-list > h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.module-group {
+    margin-bottom: 2rem;
+}
+
+.module-group h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+}
+
+.module-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.module-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.module-btn.active {
+    background: var(--secondary-color);
+    color: var(--dark-bg);
+    font-weight: bold;
+}
+
+.module-btn.completed {
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.module-number {
+    background: rgba(255, 255, 255, 0.2);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.module-btn.active .module-number {
+    background: var(--dark-bg);
+    color: var(--secondary-color);
+}
+
+/* ===== Main Content Area ===== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3rem;
+    background: white;
+}
+
+.module-content {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.module-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.module-content h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.module-intro {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+/* ===== Lessons ===== */
+.lesson {
+    margin-bottom: 3rem;
+}
+
+.lesson h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.lesson h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.lesson h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.explanation {
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.explanation p {
+    margin-bottom: 1rem;
+}
+
+.explanation ul,
+.explanation ol {
+    margin: 1rem 0 1rem 2rem;
+}
+
+.explanation li {
+    margin-bottom: 0.5rem;
+}
+
+.explanation code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+/* ===== Info Boxes ===== */
+.info-box {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border-left: 4px solid #2196f3;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 5px;
+}
+
+.info-box h4 {
+    color: #1976d2;
+    margin-bottom: 0.5rem;
+}
+
+.warning-box {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-left: 4px solid var(--warning-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 5px;
+}
+
+.warning-box h4 {
+    color: #f57c00;
+    margin-bottom: 0.5rem;
+}
+
+.best-practice {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-left: 4px solid var(--success-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 5px;
+}
+
+.best-practice h4 {
+    color: #388e3c;
+    margin-bottom: 0.5rem;
+}
+
+/* ===== Tables ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+table tr:hover {
+    background: #f5f5f5;
+}
+
+/* ===== Code Examples ===== */
+.code-example {
+    margin: 2rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.example-header {
+    background: linear-gradient(135deg, var(--primary-color), #2c5f8d);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.badge {
+    background: var(--secondary-color);
+    color: var(--dark-bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.code-block {
+    background: var(--code-bg);
+    padding: 0;
+    margin: 0;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.code-block code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #abb2bf;
+    background: transparent;
+}
+
+/* Syntax highlighting */
+.code-block code.python {
+    color: #abb2bf;
+}
+
+.run-code {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.run-code:hover {
+    background: #45a049;
+}
+
+.run-code:active {
+    transform: scale(0.98);
+}
+
+/* ===== Practice Section ===== */
+.practice {
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 3rem 0;
+}
+
+.practice h2 {
+    color: #7b1fa2;
+    margin-bottom: 1.5rem;
+}
+
+.exercise {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.exercise h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.exercise p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.code-editor {
+    margin-top: 1rem;
+}
+
+.practice-code {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    resize: vertical;
+    background: var(--code-bg);
+    color: #abb2bf;
+}
+
+.practice-code:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.run-practice {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.run-practice:hover {
+    background: #2c5f8d;
+}
+
+/* ===== Module Navigation ===== */
+.module-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.nav-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: #2c5f8d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* ===== Output Console ===== */
+.output-console {
+    background: var(--dark-bg);
+    color: #00ff00;
+    border-top: 3px solid var(--primary-color);
+    max-height: 300px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.console-header {
+    background: #2c2c2c;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+}
+
+.console-header h3 {
+    color: white;
+    font-size: 1rem;
+    margin: 0;
+}
+
+#clearOutput {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.3s ease;
+}
+
+#clearOutput:hover {
+    background: #d32f2f;
+}
+
+#output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* ===== Scrollbar Styling ===== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2c5f8d;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#output::-webkit-scrollbar-track {
+    background: #2c2c2c;
+}
+
+#output::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .content-wrapper {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .module-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-btn {
+        width: 100%;
+    }
+}
+
+/* ===== Loading Animation ===== */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== Error and Success Messages ===== */
+.error-message {
+    background: #ffebee;
+    border-left: 4px solid var(--error-color);
+    color: #c62828;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+.success-message {
+    background: #e8f5e9;
+    border-left: 4px solid var(--success-color);
+    color: #2e7d32;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+}

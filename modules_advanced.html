@@ -1,0 +1,775 @@
+<!-- MODULE 6: FILE HANDLING AND EXCEPTIONS -->
+<div id="module6" class="module-content">
+    <h1>Module 6: File Handling and Exceptions</h1>
+    <p class="module-intro">Learn to work with files, handle errors gracefully, and build robust applications!</p>
+
+    <section class="lesson">
+        <h2>6.1 Reading and Writing Files</h2>
+        <div class="explanation">
+            <p>Python makes it easy to work with files. Always remember to close files after using them, or use the <code>with</code> statement!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: File Operations</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Writing to a file
+with open('sample.txt', 'w') as file:
+    file.write("Hello, Python!\\n")
+    file.write("This is a new line\\n")
+    file.write("Learning file handling!")
+
+print("File written successfully!")
+
+# Reading entire file
+with open('sample.txt', 'r') as file:
+    content = file.read()
+    print("File content:")
+    print(content)
+
+# Reading line by line
+with open('sample.txt', 'r') as file:
+    print("\\nReading line by line:")
+    for line in file:
+        print(line.strip())  # strip() removes \\n
+
+# Reading into a list
+with open('sample.txt', 'r') as file:
+    lines = file.readlines()
+    print(f"\\nTotal lines: {len(lines)}")
+
+# Appending to a file
+with open('sample.txt', 'a') as file:
+    file.write("\\nThis is appended!")
+
+# File modes:
+# 'r' - Read (default)
+# 'w' - Write (overwrites)
+# 'a' - Append
+# 'r+' - Read and write
+# 'rb' - Read binary
+# 'wb' - Write binary</code></pre>
+            </div>
+            <button class="run-code" data-code="# Simulated file operations\nfile_content = 'Hello, Python!\\nThis is a new line\\nLearning file handling!'\nprint('File content:')\nprint(file_content)\nlines = file_content.split('\\n')\nprint(f'\\nTotal lines: {len(lines)}')\nfor line in lines:\n    print(line)">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>6.2 Working with CSV Files</h2>
+        <div class="explanation">
+            <p>CSV (Comma-Separated Values) files are common for data storage. Python's csv module makes them easy to work with.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import csv
+
+# Writing CSV
+students = [
+    ['Name', 'Age', 'Grade'],
+    ['Alice', 20, 'A'],
+    ['Bob', 22, 'B'],
+    ['Charlie', 21, 'A']
+]
+
+with open('students.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(students)
+
+print("CSV file created!")
+
+# Reading CSV
+with open('students.csv', 'r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(', '.join(row))
+
+# Using DictReader/DictWriter
+with open('students_dict.csv', 'w', newline='') as file:
+    fieldnames = ['name', 'age', 'grade']
+    writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+    writer.writeheader()
+    writer.writerow({'name': 'Alice', 'age': 20, 'grade': 'A'})
+    writer.writerow({'name': 'Bob', 'age': 22, 'grade': 'B'})
+
+# Reading with DictReader
+with open('students_dict.csv', 'r') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(f"{row['name']} is {row['age']} years old, grade: {row['grade']}")</code></pre>
+            </div>
+            <button class="run-code" data-code="# Simulated CSV operations\nstudents = [\n    ['Name', 'Age', 'Grade'],\n    ['Alice', 20, 'A'],\n    ['Bob', 22, 'B'],\n    ['Charlie', 21, 'A']\n]\nprint('CSV Data:')\nfor row in students:\n    print(', '.join(str(x) for x in row))">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>6.3 Exception Handling</h2>
+        <div class="explanation">
+            <p>Exceptions are errors that occur during program execution. Handling them properly prevents crashes and improves user experience.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Try-Except Blocks</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Basic try-except
+try:
+    number = int("not a number")
+except ValueError:
+    print("That's not a valid number!")
+
+# Multiple exception types
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+except ValueError:
+    print("Invalid value!")
+
+# Catching the exception object
+try:
+    numbers = [1, 2, 3]
+    print(numbers[10])
+except IndexError as e:
+    print(f"Error: {e}")
+
+# Multiple exceptions at once
+try:
+    value = int("abc")
+except (ValueError, TypeError) as e:
+    print(f"Invalid input: {e}")
+
+# Try-except-else-finally
+try:
+    file = open("data.txt", "r")
+    data = file.read()
+except FileNotFoundError:
+    print("File not found!")
+else:
+    print("File read successfully!")
+    print(data)
+finally:
+    print("This always runs!")
+    # file.close()  # Cleanup code
+
+# Real-world example: Safe division
+def safe_divide(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        print("Error: Division by zero!")
+        return None
+    except TypeError:
+        print("Error: Invalid types!")
+        return None
+    else:
+        return result
+
+print(safe_divide(10, 2))   # 5.0
+print(safe_divide(10, 0))   # None
+print(safe_divide(10, "a")) # None</code></pre>
+            </div>
+            <button class="run-code" data-code="# Exception handling examples\ntry:\n    number = int('not a number')\nexcept ValueError:\n    print('That is not a valid number!')\ntry:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('Cannot divide by zero!')\nprint('Program continues...')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>6.4 Raising Exceptions</h2>
+        <div class="explanation">
+            <p>You can raise exceptions to signal errors in your code.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Raising built-in exceptions
+def set_age(age):
+    if age < 0:
+        raise ValueError("Age cannot be negative!")
+    if age > 150:
+        raise ValueError("Age seems unrealistic!")
+    print(f"Age set to {age}")
+
+try:
+    set_age(25)    # OK
+    set_age(-5)    # Raises ValueError
+except ValueError as e:
+    print(f"Error: {e}")
+
+# Custom exceptions
+class InsufficientFundsError(Exception):
+    pass
+
+class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError(
+                f"Cannot withdraw ${amount}. Balance: ${self.balance}"
+            )
+        self.balance -= amount
+        print(f"Withdrew ${amount}. New balance: ${self.balance}")
+
+account = BankAccount(100)
+try:
+    account.withdraw(50)   # OK
+    account.withdraw(100)  # Raises custom exception
+except InsufficientFundsError as e:
+    print(f"Transaction failed: {e}")</code></pre>
+            </div>
+            <button class="run-code" data-code="class InsufficientFundsError(Exception):\n    pass\nclass BankAccount:\n    def __init__(self, balance):\n        self.balance = balance\n    def withdraw(self, amount):\n        if amount > self.balance:\n            raise InsufficientFundsError(f'Cannot withdraw ${amount}. Balance: ${self.balance}')\n        self.balance -= amount\n        print(f'Withdrew ${amount}. Balance: ${self.balance}')\naccount = BankAccount(100)\ntry:\n    account.withdraw(50)\n    account.withdraw(100)\nexcept InsufficientFundsError as e:\n    print(f'Failed: {e}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>6.5 Context Managers</h2>
+        <div class="explanation">
+            <p>Context managers (using <code>with</code>) ensure proper resource management and cleanup.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># File handling with context manager
+with open('myfile.txt', 'w') as f:
+    f.write('Hello!')
+# File automatically closed!
+
+# Creating custom context managers
+class Timer:
+    def __enter__(self):
+        import time
+        self.start = time.time()
+        print("Timer started!")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        import time
+        elapsed = time.time() - self.start
+        print(f"Timer stopped! Elapsed: {elapsed:.4f}s")
+        return False
+
+# Using custom context manager
+with Timer():
+    total = sum(range(1000000))
+    print(f"Sum calculated: {total}")
+
+# Context manager with decorator
+from contextlib import contextmanager
+
+@contextmanager
+def file_manager(filename, mode):
+    print(f"Opening file: {filename}")
+    f = open(filename, mode)
+    try:
+        yield f
+    finally:
+        print(f"Closing file: {filename}")
+        f.close()
+
+# with file_manager('test.txt', 'w') as f:
+#     f.write('Hello from context manager!')</code></pre>
+            </div>
+            <button class="run-code" data-code="# Context manager example\nclass Timer:\n    def __enter__(self):\n        print('Timer started!')\n        return self\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print('Timer stopped!')\n        return False\nwith Timer():\n    total = sum(range(100000))\n    print(f'Sum calculated: {total}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module5">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module7">Next Module: Advanced Python →</button>
+    </div>
+</div>
+
+<!-- MODULE 7: ADVANCED PYTHON CONCEPTS -->
+<div id="module7" class="module-content">
+    <h1>Module 7: Advanced Python Concepts</h1>
+    <p class="module-intro">Master decorators, generators, comprehensions, and other powerful Python features!</p>
+
+    <section class="lesson">
+        <h2>7.1 Decorators</h2>
+        <div class="explanation">
+            <p>Decorators are functions that modify the behavior of other functions. They're widely used in web frameworks and APIs!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Function Decorators</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python"># Simple decorator
+def my_decorator(func):
+    def wrapper():
+        print("Before function call")
+        func()
+        print("After function call")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()
+
+# Decorator with arguments
+def repeat(times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(3)
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+
+# Practical decorator: Timing functions
+import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end-start:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    total = 0
+    for i in range(1000000):
+        total += i
+    return total
+
+result = slow_function()
+
+# Multiple decorators
+def bold(func):
+    def wrapper():
+        return f"<b>{func()}</b>"
+    return wrapper
+
+def italic(func):
+    def wrapper():
+        return f"<i>{func()}</i>"
+    return wrapper
+
+@bold
+@italic
+def get_text():
+    return "Hello"
+
+print(get_text())  # <b><i>Hello</i></b></code></pre>
+            </div>
+            <button class="run-code" data-code="def my_decorator(func):\n    def wrapper():\n        print('Before function call')\n        func()\n        print('After function call')\n    return wrapper\n@my_decorator\ndef say_hello():\n    print('Hello!')\nsay_hello()">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>7.2 Generators and Iterators</h2>
+        <div class="explanation">
+            <p>Generators produce values on-the-fly, saving memory for large datasets. They use <code>yield</code> instead of <code>return</code>.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># Generator function
+def countdown(n):
+    while n > 0:
+        yield n
+        n -= 1
+
+# Using the generator
+for num in countdown(5):
+    print(num)
+
+# Generator vs List - Memory efficient!
+# List: Creates entire list in memory
+def squares_list(n):
+    return [x**2 for x in range(n)]
+
+# Generator: Creates values one at a time
+def squares_generator(n):
+    for x in range(n):
+        yield x**2
+
+# Compare
+import sys
+list_obj = squares_list(1000)
+gen_obj = squares_generator(1000)
+
+print(f"List size: {sys.getsizeof(list_obj)} bytes")
+print(f"Generator size: {sys.getsizeof(gen_obj)} bytes")
+
+# Generator expression (like list comprehension)
+squares = (x**2 for x in range(10))
+for sq in squares:
+    print(sq, end=" ")
+print()
+
+# Real-world: Reading large files
+def read_large_file(filename):
+    with open(filename, 'r') as f:
+        for line in f:
+            yield line.strip()
+
+# Fibonacci generator
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+# Get first 10 Fibonacci numbers
+fib = fibonacci()
+fib_numbers = [next(fib) for _ in range(10)]
+print(f"Fibonacci: {fib_numbers}")
+
+# Custom iterator
+class CountDown:
+    def __init__(self, start):
+        self.current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        self.current -= 1
+        return self.current + 1
+
+for num in CountDown(5):
+    print(num)</code></pre>
+            </div>
+            <button class="run-code" data-code="def countdown(n):\n    while n > 0:\n        yield n\n        n -= 1\nfor num in countdown(5):\n    print(num)\ndef fibonacci():\n    a, b = 0, 1\n    count = 0\n    while count < 10:\n        yield a\n        a, b = b, a + b\n        count += 1\nfib_numbers = list(fibonacci())\nprint(f'Fibonacci: {fib_numbers}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>7.3 List, Dict, and Set Comprehensions</h2>
+        <div class="explanation">
+            <p>Comprehensions provide concise ways to create lists, dictionaries, and sets.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># List comprehension
+squares = [x**2 for x in range(10)]
+print(f"Squares: {squares}")
+
+# With condition
+evens = [x for x in range(20) if x % 2 == 0]
+print(f"Evens: {evens}")
+
+# Nested comprehension
+matrix = [[i*j for j in range(1, 4)] for i in range(1, 4)]
+print("Matrix:")
+for row in matrix:
+    print(row)
+
+# Dictionary comprehension
+squares_dict = {x: x**2 for x in range(1, 6)}
+print(f"Squares dict: {squares_dict}")
+
+# Transform dictionary
+temps_c = {'morning': 10, 'noon': 25, 'evening': 15}
+temps_f = {time: (temp * 9/5) + 32 for time, temp in temps_c.items()}
+print(f"Temps F: {temps_f}")
+
+# Set comprehension
+unique_lengths = {len(word) for word in ['hello', 'world', 'python', 'code']}
+print(f"Unique lengths: {unique_lengths}")
+
+# Complex example: Parse data
+data = "name:Alice,age:25,city:NYC;name:Bob,age:30,city:LA"
+people = [
+    {
+        item.split(':')[0]: item.split(':')[1]
+        for item in person.split(',')
+    }
+    for person in data.split(';')
+]
+for person in people:
+    print(person)
+
+# Conditional expression in comprehension
+numbers = range(-5, 6)
+abs_values = [x if x >= 0 else -x for x in numbers]
+print(f"Absolute values: {abs_values}")</code></pre>
+            </div>
+            <button class="run-code" data-code="squares = [x**2 for x in range(10)]\nprint(f'Squares: {squares}')\nevens = [x for x in range(20) if x % 2 == 0]\nprint(f'Evens: {evens}')\nsquares_dict = {x: x**2 for x in range(1, 6)}\nprint(f'Squares dict: {squares_dict}')\nunique_lengths = {len(word) for word in ['hello', 'world', 'python', 'code']}\nprint(f'Unique lengths: {unique_lengths}')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>7.4 Args and Kwargs</h2>
+        <div class="explanation">
+            <p><code>*args</code> and <code>**kwargs</code> allow functions to accept variable numbers of arguments.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python"># *args - Variable positional arguments
+def sum_all(*args):
+    total = 0
+    for num in args:
+        total += num
+    return total
+
+print(sum_all(1, 2, 3))           # 6
+print(sum_all(10, 20, 30, 40))    # 100
+
+# **kwargs - Variable keyword arguments
+def print_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_info(name="Alice", age=25, city="NYC")
+
+# Combining regular args, *args, and **kwargs
+def complex_function(required, *args, default="hello", **kwargs):
+    print(f"Required: {required}")
+    print(f"Args: {args}")
+    print(f"Default: {default}")
+    print(f"Kwargs: {kwargs}")
+
+complex_function(
+    "must have",
+    1, 2, 3,
+    default="custom",
+    extra1="value1",
+    extra2="value2"
+)
+
+# Unpacking with * and **
+numbers = [1, 2, 3, 4, 5]
+print(sum_all(*numbers))  # Unpacks list
+
+person = {"name": "Alice", "age": 25, "city": "NYC"}
+print_info(**person)  # Unpacks dictionary
+
+# Practical example: Flexible API client
+def api_call(endpoint, method="GET", **params):
+    print(f"Calling {method} {endpoint}")
+    print(f"Parameters: {params}")
+
+api_call("/users", method="GET", limit=10, offset=0)
+api_call("/users/123", method="PUT", name="Alice", email="alice@email.com")</code></pre>
+            </div>
+            <button class="run-code" data-code="def sum_all(*args):\n    return sum(args)\nprint('Sum:', sum_all(1, 2, 3))\nprint('Sum:', sum_all(10, 20, 30, 40))\ndef print_info(**kwargs):\n    for key, value in kwargs.items():\n        print(f'{key}: {value}')\nprint_info(name='Alice', age=25, city='NYC')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module6">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module8">Next Module: APIs →</button>
+    </div>
+</div>
+
+<!-- MODULE 8: WORKING WITH APIs -->
+<div id="module8" class="module-content">
+    <h1>Module 8: Working with APIs</h1>
+    <p class="module-intro">Learn to interact with web APIs, fetch data, and build real-world applications!</p>
+
+    <section class="lesson">
+        <h2>8.1 Introduction to APIs</h2>
+        <div class="explanation">
+            <p>APIs (Application Programming Interfaces) allow different applications to communicate. RESTful APIs use HTTP methods to interact with data.</p>
+
+            <div class="info-box">
+                <h4>💡 HTTP Methods</h4>
+                <ul>
+                    <li><strong>GET:</strong> Retrieve data</li>
+                    <li><strong>POST:</strong> Create new data</li>
+                    <li><strong>PUT/PATCH:</strong> Update existing data</li>
+                    <li><strong>DELETE:</strong> Remove data</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="code-example">
+            <div class="example-header">
+                <h4>Example: Making HTTP Requests</h4>
+            </div>
+            <div class="code-block">
+                <pre><code class="python">import requests
+import json
+
+# GET request - Fetch data
+response = requests.get('https://api.github.com/users/python')
+
+print(f"Status Code: {response.status_code}")
+print(f"Headers: {response.headers['content-type']}")
+
+# Parse JSON response
+data = response.json()
+print(f"Name: {data['name']}")
+print(f"Followers: {data['followers']}")
+print(f"Public Repos: {data['public_repos']}")
+
+# GET with parameters
+params = {
+    'q': 'python',
+    'sort': 'stars',
+    'order': 'desc'
+}
+response = requests.get(
+    'https://api.github.com/search/repositories',
+    params=params
+)
+
+repos = response.json()
+print(f"\\nTop Python repositories:")
+for repo in repos['items'][:5]:
+    print(f"- {repo['name']}: {repo['stargazers_count']} stars")
+
+# POST request - Send data
+new_post = {
+    'title': 'My Post',
+    'body': 'This is the content',
+    'userId': 1
+}
+
+response = requests.post(
+    'https://jsonplaceholder.typicode.com/posts',
+    json=new_post
+)
+
+print(f"\\nCreated post: {response.json()}")
+
+# Headers and authentication
+headers = {
+    'Authorization': 'Bearer YOUR_TOKEN',
+    'Content-Type': 'application/json'
+}
+
+# response = requests.get(
+#     'https://api.example.com/data',
+#     headers=headers
+# )</code></pre>
+            </div>
+            <button class="run-code" data-code="# API example (simulated)\nprint('Making API request...')\nprint('Status Code: 200')\ndata = {'name': 'Python', 'followers': 50000, 'public_repos': 100}\nprint(f'Name: {data[\"name\"]}')\nprint(f'Followers: {data[\"followers\"]}')\nprint(f'Public Repos: {data[\"public_repos\"]}')\nprint('\\nAPI request completed!')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>8.2 Error Handling with APIs</h2>
+        <div class="explanation">
+            <p>Always handle errors when working with APIs - networks fail, services go down, and data can be unexpected!</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import requests
+from requests.exceptions import RequestException, Timeout, HTTPError
+
+def fetch_user_data(username):
+    try:
+        response = requests.get(
+            f'https://api.github.com/users/{username}',
+            timeout=5  # 5 second timeout
+        )
+
+        # Raise exception for bad status codes
+        response.raise_for_status()
+
+        return response.json()
+
+    except Timeout:
+        print("Request timed out!")
+        return None
+    except HTTPError as e:
+        print(f"HTTP error occurred: {e}")
+        return None
+    except RequestException as e:
+        print(f"Error occurred: {e}")
+        return None
+
+# Try it out
+user = fetch_user_data('python')
+if user:
+    print(f"Found user: {user.get('name', 'Unknown')}")
+
+# Check status codes manually
+response = requests.get('https://api.github.com/nonexistent')
+if response.status_code == 404:
+    print("Resource not found!")
+elif response.status_code == 200:
+    print("Success!")
+else:
+    print(f"Unexpected status: {response.status_code}")</code></pre>
+            </div>
+            <button class="run-code" data-code="# API error handling (simulated)\ndef fetch_user_data(username):\n    if username == 'python':\n        return {'name': 'Python', 'followers': 50000}\n    else:\n        print('User not found!')\n        return None\nuser = fetch_user_data('python')\nif user:\n    print(f'Found user: {user[\"name\"]}')\nuser = fetch_user_data('nonexistent')\nif not user:\n    print('Failed to fetch user')">▶ Run Code</button>
+        </div>
+    </section>
+
+    <section class="lesson">
+        <h2>8.3 Building an API Client Class</h2>
+        <div class="explanation">
+            <p>Create reusable API client classes for cleaner, more maintainable code.</p>
+        </div>
+
+        <div class="code-example">
+            <div class="code-block">
+                <pre><code class="python">import requests
+
+class GitHubAPI:
+    BASE_URL = "https://api.github.com"
+
+    def __init__(self, token=None):
+        self.session = requests.Session()
+        if token:
+            self.session.headers['Authorization'] = f'token {token}'
+
+    def get_user(self, username):
+        """Get user information"""
+        url = f"{self.BASE_URL}/users/{username}"
+        response = self.session.get(url)
+        response.raise_for_status()
+        return response.json()
+
+    def get_repos(self, username):
+        """Get user's repositories"""
+        url = f"{self.BASE_URL}/users/{username}/repos"
+        response = self.session.get(url)
+        response.raise_for_status()
+        return response.json()
+
+    def search_repositories(self, query, sort='stars'):
+        """Search repositories"""
+        url = f"{self.BASE_URL}/search/repositories"
+        params = {'q': query, 'sort': sort}
+        response = self.session.get(url, params=params)
+        response.raise_for_status()
+        return response.json()
+
+# Usage
+api = GitHubAPI()
+
+user = api.get_user('python')
+print(f"User: {user['name']}")
+
+repos = api.get_repos('python')
+print(f"\\nFirst 5 repositories:")
+for repo in repos[:5]:
+    print(f"- {repo['name']}")
+
+results = api.search_repositories('machine learning python')
+print(f"\\nFound {results['total_count']} repositories")</code></pre>
+            </div>
+            <button class="run-code" data-code="# API Client class (simulated)\nclass GitHubAPI:\n    def get_user(self, username):\n        return {'name': 'Python', 'followers': 50000}\n    def get_repos(self, username):\n        return [\n            {'name': 'cpython'},\n            {'name': 'peps'},\n            {'name': 'devguide'}\n        ]\napi = GitHubAPI()\nuser = api.get_user('python')\nprint(f'User: {user[\"name\"]}')\nrepos = api.get_repos('python')\nprint('\\nRepositories:')\nfor repo in repos:\n    print(f'- {repo[\"name\"]}')" >▶ Run Code</button>
+        </div>
+    </section>
+
+    <div class="module-navigation">
+        <button class="nav-btn prev-module" data-prev="module7">← Previous Module</button>
+        <button class="nav-btn next-module" data-next="module9">Next Module: Databases →</button>
+    </div>
+</div>

@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Mastery: From Zero to Hero</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>🐍 Python Mastery</h1>
+                <p class="tagline">From Zero to Hero</p>
+            </div>
+
+            <div class="progress-tracker">
+                <h3>Your Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+            </div>
+
+            <div class="module-list">
+                <h3>Course Modules</h3>
+
+                <div class="module-group">
+                    <h4>🎯 Beginner Level</h4>
+                    <button class="module-btn active" data-module="module1">
+                        <span class="module-number">1</span> Python Fundamentals
+                    </button>
+                    <button class="module-btn" data-module="module2">
+                        <span class="module-number">2</span> Control Flow
+                    </button>
+                    <button class="module-btn" data-module="module3">
+                        <span class="module-number">3</span> Data Structures
+                    </button>
+                    <button class="module-btn" data-module="module4">
+                        <span class="module-number">4</span> Functions & Scope
+                    </button>
+                </div>
+
+                <div class="module-group">
+                    <h4>🚀 Intermediate Level</h4>
+                    <button class="module-btn" data-module="module5">
+                        <span class="module-number">5</span> Object-Oriented Programming
+                    </button>
+                    <button class="module-btn" data-module="module6">
+                        <span class="module-number">6</span> File Handling & Exceptions
+                    </button>
+                    <button class="module-btn" data-module="module7">
+                        <span class="module-number">7</span> Advanced Python Concepts
+                    </button>
+                </div>
+
+                <div class="module-group">
+                    <h4>⭐ Advanced Level</h4>
+                    <button class="module-btn" data-module="module8">
+                        <span class="module-number">8</span> Working with APIs
+                    </button>
+                    <button class="module-btn" data-module="module9">
+                        <span class="module-number">9</span> Database Integration
+                    </button>
+                    <button class="module-btn" data-module="module10">
+                        <span class="module-number">10</span> AI & Machine Learning
+                    </button>
+                    <button class="module-btn" data-module="module11">
+                        <span class="module-number">11</span> Web Development
+                    </button>
+                    <button class="module-btn" data-module="module12">
+                        <span class="module-number">12</span> Automation & Robotics
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Module 1: Python Fundamentals -->
+                <div id="module1" class="module-content active">
+                    <h1>Module 1: Python Fundamentals</h1>
+                    <p class="module-intro">Welcome to your Python journey! In this module, you'll learn the building blocks of Python programming.</p>
+
+                    <section class="lesson">
+                        <h2>1.1 What is Python?</h2>
+                        <div class="explanation">
+                            <p>Python is a high-level, interpreted programming language known for its simplicity and readability. Created by Guido van Rossum in 1991, Python emphasizes code readability with its notable use of significant whitespace.</p>
+
+                            <h3>Why Python?</h3>
+                            <ul>
+                                <li><strong>Easy to Learn:</strong> Clean, readable syntax that resembles natural language</li>
+                                <li><strong>Versatile:</strong> Used in web development, data science, AI, automation, and more</li>
+                                <li><strong>Large Community:</strong> Extensive libraries and frameworks available</li>
+                                <li><strong>High Demand:</strong> One of the most sought-after programming skills</li>
+                            </ul>
+
+                            <div class="info-box">
+                                <h4>💡 Real-World Applications</h4>
+                                <p>Python powers: Instagram, Spotify, Netflix (recommendations), NASA (data analysis), Tesla (autopilot systems), and countless AI applications!</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>1.2 Your First Python Program</h2>
+                        <div class="explanation">
+                            <p>Let's start with the traditional "Hello, World!" program. This simple program demonstrates the basic syntax of Python.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Hello, World!</h4>
+                                <span class="badge">Try it yourself</span>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># This is a comment - Python ignores this line
+# Comments help explain code to humans
+
+print("Hello, World!")  # This displays text on the screen</code></pre>
+                            </div>
+                            <button class="run-code" data-code="print('Hello, World!')">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Understanding the Code:</h3>
+                            <ul>
+                                <li><code>#</code> - Creates a comment (ignored by Python)</li>
+                                <li><code>print()</code> - A function that displays output</li>
+                                <li><code>"Hello, World!"</code> - A string (text) enclosed in quotes</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>1.3 Variables and Data Types</h2>
+                        <div class="explanation">
+                            <p>Variables are containers that store data. Unlike many languages, Python doesn't require you to declare variable types - it figures it out automatically!</p>
+
+                            <h3>Basic Data Types:</h3>
+                            <table class="data-types-table">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                </tr>
+                                <tr>
+                                    <td><code>int</code></td>
+                                    <td>Whole numbers</td>
+                                    <td>42, -17, 0</td>
+                                </tr>
+                                <tr>
+                                    <td><code>float</code></td>
+                                    <td>Decimal numbers</td>
+                                    <td>3.14, -0.5, 2.0</td>
+                                </tr>
+                                <tr>
+                                    <td><code>str</code></td>
+                                    <td>Text/strings</td>
+                                    <td>"Hello", 'Python'</td>
+                                </tr>
+                                <tr>
+                                    <td><code>bool</code></td>
+                                    <td>True/False values</td>
+                                    <td>True, False</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Working with Variables</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating variables (no type declaration needed!)
+name = "Alice"              # String
+age = 25                    # Integer
+height = 5.6                # Float
+is_student = True           # Boolean
+
+# Displaying variables
+print("Name:", name)
+print("Age:", age)
+print("Height:", height, "feet")
+print("Is student?", is_student)
+
+# You can also use f-strings (formatted strings) - more modern!
+print(f"{name} is {age} years old and {height} feet tall.")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="name = 'Alice'\nage = 25\nheight = 5.6\nis_student = True\nprint('Name:', name)\nprint('Age:', age)\nprint('Height:', height, 'feet')\nprint('Is student?', is_student)\nprint(f'{name} is {age} years old and {height} feet tall.')">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Variable Naming Rules:</h3>
+                            <ul>
+                                <li>Must start with a letter or underscore (_)</li>
+                                <li>Can contain letters, numbers, and underscores</li>
+                                <li>Case-sensitive (<code>age</code> and <code>Age</code> are different)</li>
+                                <li>Cannot use Python keywords (like <code>print</code>, <code>if</code>, <code>for</code>)</li>
+                            </ul>
+
+                            <div class="best-practice">
+                                <h4>✅ Best Practice: Variable Names</h4>
+                                <p><strong>Good:</strong> <code>student_name</code>, <code>total_price</code>, <code>is_valid</code></p>
+                                <p><strong>Avoid:</strong> <code>x</code>, <code>temp</code>, <code>data1</code> (not descriptive)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>1.4 Basic Operators</h2>
+                        <div class="explanation">
+                            <p>Operators allow you to perform operations on variables and values.</p>
+
+                            <h3>Arithmetic Operators:</h3>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Math Operations</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Basic arithmetic
+a = 10
+b = 3
+
+print("Addition:", a + b)        # 13
+print("Subtraction:", a - b)     # 7
+print("Multiplication:", a * b)  # 30
+print("Division:", a / b)        # 3.333...
+print("Floor Division:", a // b) # 3 (rounds down)
+print("Modulus (remainder):", a % b)  # 1
+print("Exponentiation:", a ** b) # 1000 (10^3)
+
+# Order of operations (PEMDAS) applies!
+result = (10 + 5) * 2 - 3 ** 2
+print("Complex calculation:", result)  # 21</code></pre>
+                            </div>
+                            <button class="run-code" data-code="a = 10\nb = 3\nprint('Addition:', a + b)\nprint('Subtraction:', a - b)\nprint('Multiplication:', a * b)\nprint('Division:', a / b)\nprint('Floor Division:', a // b)\nprint('Modulus (remainder):', a % b)\nprint('Exponentiation:', a ** b)\nresult = (10 + 5) * 2 - 3 ** 2\nprint('Complex calculation:', result)">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Comparison Operators:</h3>
+                            <p>These operators compare values and return True or False:</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">x = 5
+y = 10
+
+print(x == y)   # Equal to: False
+print(x != y)   # Not equal to: True
+print(x > y)    # Greater than: False
+print(x < y)    # Less than: True
+print(x >= 5)   # Greater than or equal: True
+print(x <= 10)  # Less than or equal: True</code></pre>
+                            </div>
+                            <button class="run-code" data-code="x = 5\ny = 10\nprint('x == y:', x == y)\nprint('x != y:', x != y)\nprint('x > y:', x > y)\nprint('x < y:', x < y)\nprint('x >= 5:', x >= 5)\nprint('x <= 10:', x <= 10)">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>1.5 String Operations</h2>
+                        <div class="explanation">
+                            <p>Strings are sequences of characters. Python provides powerful tools for working with text.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: String Manipulation</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating strings
+message = "Hello, Python!"
+quote = 'Learning is fun'
+multiline = """This is a
+multi-line
+string"""
+
+# String concatenation
+first_name = "John"
+last_name = "Doe"
+full_name = first_name + " " + last_name
+print(full_name)  # John Doe
+
+# String methods
+text = "  Python Programming  "
+print(text.upper())       # PYTHON PROGRAMMING
+print(text.lower())       # python programming
+print(text.strip())       # Python Programming (removes whitespace)
+print(text.replace("Python", "Java"))  # Java Programming
+
+# String indexing and slicing
+word = "Python"
+print(word[0])      # P (first character)
+print(word[-1])     # n (last character)
+print(word[0:3])    # Pyt (characters 0, 1, 2)
+print(word[2:])     # thon (from index 2 to end)
+
+# String length
+print(len(word))    # 6
+
+# Check if substring exists
+print("Py" in word)  # True
+print("Java" in word)  # False</code></pre>
+                            </div>
+                            <button class="run-code" data-code="first_name = 'John'\nlast_name = 'Doe'\nfull_name = first_name + ' ' + last_name\nprint(full_name)\ntext = '  Python Programming  '\nprint(text.upper())\nprint(text.lower())\nprint(text.strip())\nprint(text.replace('Python', 'Java'))\nword = 'Python'\nprint('First char:', word[0])\nprint('Last char:', word[-1])\nprint('First 3:', word[0:3])\nprint('From index 2:', word[2:])\nprint('Length:', len(word))\nprint('Py in word:', 'Py' in word)">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>1.6 User Input</h2>
+                        <div class="explanation">
+                            <p>The <code>input()</code> function allows you to get information from users. Note: In this web environment, we'll use predefined values for demonstration.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Interactive Program</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># In a real Python environment, this would prompt the user
+# name = input("What's your name? ")
+# age = input("How old are you? ")
+
+# For demonstration:
+name = "Alice"
+age = "25"
+
+print(f"Hello, {name}!")
+print(f"You are {age} years old.")
+
+# Converting input to numbers
+age_number = int(age)  # Convert string to integer
+years_to_100 = 100 - age_number
+print(f"You have {years_to_100} years until you turn 100!")
+
+# Type conversion examples
+string_number = "42"
+real_number = int(string_number)
+print(type(string_number))  # <class 'str'>
+print(type(real_number))    # <class 'int'>
+
+decimal_string = "3.14"
+decimal_number = float(decimal_string)
+print(type(decimal_number))  # <class 'float'></code></pre>
+                            </div>
+                            <button class="run-code" data-code="name = 'Alice'\nage = '25'\nprint(f'Hello, {name}!')\nprint(f'You are {age} years old.')\nage_number = int(age)\nyears_to_100 = 100 - age_number\nprint(f'You have {years_to_100} years until you turn 100!')\nstring_number = '42'\nreal_number = int(string_number)\nprint('Type of string_number:', type(string_number))\nprint('Type of real_number:', type(real_number))\ndecimal_string = '3.14'\ndecimal_number = float(decimal_string)\nprint('Type of decimal_number:', type(decimal_number))">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="practice">
+                        <h2>🎯 Practice Exercises</h2>
+
+                        <div class="exercise">
+                            <h3>Exercise 1: Simple Calculator</h3>
+                            <p>Create variables for two numbers and perform all arithmetic operations on them.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Hint: Create two variables and use +, -, *, /, //, %, **"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 2: Personal Info Card</h3>
+                            <p>Create variables for your name, age, favorite color, and hobby. Print them in a formatted way.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Hint: Use f-strings to create a nice formatted output"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 3: Temperature Converter</h3>
+                            <p>Convert a temperature from Celsius to Fahrenheit. Formula: F = (C × 9/5) + 32</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Hint: celsius = 25
+# fahrenheit = (celsius * 9/5) + 32"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="module-navigation">
+                        <button class="nav-btn" disabled>← Previous Module</button>
+                        <button class="nav-btn next-module" data-next="module2">Next Module: Control Flow →</button>
+                    </div>
+                </div>
+
+                <!-- Module 2: Control Flow -->
+                <div id="module2" class="module-content">
+                    <h1>Module 2: Control Flow</h1>
+                    <p class="module-intro">Learn how to make decisions and repeat actions in your programs!</p>
+
+                    <section class="lesson">
+                        <h2>2.1 If Statements - Making Decisions</h2>
+                        <div class="explanation">
+                            <p>Control flow allows your program to make decisions. The <code>if</code> statement is the foundation of decision-making in Python.</p>
+
+                            <div class="info-box">
+                                <h4>💡 Think of it like this:</h4>
+                                <p>"If it's raining, take an umbrella. Otherwise, wear sunglasses."</p>
+                            </div>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Basic If Statement</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Simple if statement
+age = 18
+
+if age >= 18:
+    print("You are an adult!")
+    print("You can vote!")
+
+# Note: Indentation is CRUCIAL in Python!
+# Everything indented under 'if' only runs when condition is True
+
+temperature = 75
+
+if temperature > 80:
+    print("It's hot outside!")
+if temperature <= 80:
+    print("The weather is pleasant!")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="age = 18\nif age >= 18:\n    print('You are an adult!')\n    print('You can vote!')\ntemperature = 75\nif temperature > 80:\n    print('It\\'s hot outside!')\nif temperature <= 80:\n    print('The weather is pleasant!')">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>If-Else: Two Paths</h3>
+                            <p>When you want to do one thing if a condition is true, and something else if it's false:</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">age = 15
+
+if age >= 18:
+    print("You can vote!")
+else:
+    print("You're too young to vote.")
+    years_left = 18 - age
+    print(f"Wait {years_left} more years.")
+
+# Another example: Even or Odd
+number = 42
+
+if number % 2 == 0:
+    print(f"{number} is even")
+else:
+    print(f"{number} is odd")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="age = 15\nif age >= 18:\n    print('You can vote!')\nelse:\n    print('You\\'re too young to vote.')\n    years_left = 18 - age\n    print(f'Wait {years_left} more years.')\nnumber = 42\nif number % 2 == 0:\n    print(f'{number} is even')\nelse:\n    print(f'{number} is odd')">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2.2 Elif - Multiple Conditions</h2>
+                        <div class="explanation">
+                            <p>When you have more than two possibilities, use <code>elif</code> (else if):</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Grade Calculator</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python">score = 85
+
+if score >= 90:
+    grade = "A"
+    print("Excellent!")
+elif score >= 80:
+    grade = "B"
+    print("Great job!")
+elif score >= 70:
+    grade = "C"
+    print("Good work!")
+elif score >= 60:
+    grade = "D"
+    print("You passed!")
+else:
+    grade = "F"
+    print("Need to study more.")
+
+print(f"Your grade is: {grade}")
+
+# Real-world example: Traffic Light
+light_color = "yellow"
+
+if light_color == "green":
+    print("Go!")
+elif light_color == "yellow":
+    print("Slow down!")
+elif light_color == "red":
+    print("Stop!")
+else:
+    print("Light malfunction!")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="score = 85\nif score >= 90:\n    grade = 'A'\n    print('Excellent!')\nelif score >= 80:\n    grade = 'B'\n    print('Great job!')\nelif score >= 70:\n    grade = 'C'\n    print('Good work!')\nelif score >= 60:\n    grade = 'D'\n    print('You passed!')\nelse:\n    grade = 'F'\n    print('Need to study more.')\nprint(f'Your grade is: {grade}')">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2.3 Logical Operators</h2>
+                        <div class="explanation">
+                            <p>Combine multiple conditions using <code>and</code>, <code>or</code>, and <code>not</code>:</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Complex Conditions</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># AND - Both conditions must be True
+age = 25
+has_license = True
+
+if age >= 18 and has_license:
+    print("You can drive!")
+else:
+    print("You cannot drive.")
+
+# OR - At least one condition must be True
+day = "Saturday"
+
+if day == "Saturday" or day == "Sunday":
+    print("It's the weekend!")
+else:
+    print("It's a weekday.")
+
+# NOT - Reverses the condition
+is_raining = False
+
+if not is_raining:
+    print("You don't need an umbrella!")
+
+# Combining multiple operators
+temperature = 72
+is_sunny = True
+
+if temperature >= 70 and temperature <= 80 and is_sunny:
+    print("Perfect day for a picnic!")
+elif temperature > 80 and is_sunny:
+    print("Too hot! Stay hydrated!")
+elif temperature < 70 and not is_sunny:
+    print("Cold and cloudy - stay inside!")
+else:
+    print("Weather is okay.")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="age = 25\nhas_license = True\nif age >= 18 and has_license:\n    print('You can drive!')\nelse:\n    print('You cannot drive.')\nday = 'Saturday'\nif day == 'Saturday' or day == 'Sunday':\n    print('It\\'s the weekend!')\nelse:\n    print('It\\'s a weekday.')\nis_raining = False\nif not is_raining:\n    print('You don\\'t need an umbrella!')">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2.4 While Loops - Repeat Until Done</h2>
+                        <div class="explanation">
+                            <p>Loops allow you to repeat code. A <code>while</code> loop continues as long as a condition is True.</p>
+
+                            <div class="warning-box">
+                                <h4>⚠️ Caution: Infinite Loops</h4>
+                                <p>Always make sure your loop will eventually end! Otherwise, it will run forever.</p>
+                            </div>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: While Loop Basics</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Count from 1 to 5
+count = 1
+
+while count <= 5:
+    print(f"Count is: {count}")
+    count = count + 1  # Same as: count += 1
+
+print("Done counting!")
+
+# Countdown example
+countdown = 5
+
+while countdown > 0:
+    print(countdown)
+    countdown -= 1
+
+print("Blast off! 🚀")
+
+# Sum numbers until we reach a target
+total = 0
+number = 1
+
+while total < 100:
+    total += number
+    number += 1
+
+print(f"Sum: {total}, Numbers used: {number - 1}")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="count = 1\nwhile count <= 5:\n    print(f'Count is: {count}')\n    count += 1\nprint('Done counting!')\ncountdown = 5\nwhile countdown > 0:\n    print(countdown)\n    countdown -= 1\nprint('Blast off! 🚀')">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Break and Continue</h3>
+                            <p><code>break</code> exits the loop entirely. <code>continue</code> skips to the next iteration.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python"># Using break
+count = 1
+
+while True:  # Infinite loop!
+    print(count)
+    if count >= 5:
+        break  # Exit the loop
+    count += 1
+
+print("Loop exited!")
+
+# Using continue
+number = 0
+
+while number < 10:
+    number += 1
+    if number % 2 == 0:
+        continue  # Skip even numbers
+    print(f"{number} is odd")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="count = 1\nwhile True:\n    print(count)\n    if count >= 5:\n        break\n    count += 1\nprint('Loop exited!')\nnumber = 0\nwhile number < 10:\n    number += 1\n    if number % 2 == 0:\n        continue\n    print(f'{number} is odd')">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2.5 For Loops - Iterate Over Sequences</h2>
+                        <div class="explanation">
+                            <p>For loops are perfect when you know how many times you want to repeat something, or when you want to go through items in a sequence.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: For Loop with Range</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># range(stop) - goes from 0 to stop-1
+for i in range(5):
+    print(f"Number: {i}")
+
+# range(start, stop) - goes from start to stop-1
+for i in range(1, 6):
+    print(f"Count: {i}")
+
+# range(start, stop, step) - custom increment
+for i in range(0, 11, 2):
+    print(f"Even number: {i}")
+
+# Countdown
+for i in range(10, 0, -1):
+    print(i)
+print("Happy New Year!")
+
+# Multiplication table
+number = 7
+for i in range(1, 11):
+    result = number * i
+    print(f"{number} × {i} = {result}")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="print('Range 5:')\nfor i in range(5):\n    print(f'Number: {i}')\nprint('\\nRange 1-6:')\nfor i in range(1, 6):\n    print(f'Count: {i}')\nprint('\\nEven numbers:')\nfor i in range(0, 11, 2):\n    print(f'Even: {i}')">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Looping Through Strings</h3>
+                            <p>You can iterate through each character in a string:</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">message = "Python"
+
+for letter in message:
+    print(letter)
+
+# Count vowels in a word
+word = "Programming"
+vowel_count = 0
+
+for char in word:
+    if char.lower() in "aeiou":
+        vowel_count += 1
+
+print(f"'{word}' has {vowel_count} vowels")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="message = 'Python'\nfor letter in message:\n    print(letter)\nword = 'Programming'\nvowel_count = 0\nfor char in word:\n    if char.lower() in 'aeiou':\n        vowel_count += 1\nprint(f\"'{word}' has {vowel_count} vowels\")">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2.6 Nested Loops</h2>
+                        <div class="explanation">
+                            <p>You can put loops inside loops! This is useful for working with grids, tables, or complex patterns.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Patterns and Tables</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Print a rectangle of stars
+for row in range(3):
+    for col in range(5):
+        print("*", end="")
+    print()  # New line after each row
+
+print()  # Empty line
+
+# Multiplication table
+for i in range(1, 6):
+    for j in range(1, 6):
+        product = i * j
+        print(f"{product:3}", end=" ")  # :3 means 3 spaces wide
+    print()  # New line
+
+print()
+
+# Triangle pattern
+for i in range(1, 6):
+    for j in range(i):
+        print("*", end="")
+    print()</code></pre>
+                            </div>
+                            <button class="run-code" data-code="print('Rectangle:')\nfor row in range(3):\n    for col in range(5):\n        print('*', end='')\n    print()\nprint('\\nTriangle:')\nfor i in range(1, 6):\n    for j in range(i):\n        print('*', end='')\n    print()">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="practice">
+                        <h2>🎯 Practice Exercises</h2>
+
+                        <div class="exercise">
+                            <h3>Exercise 1: FizzBuzz</h3>
+                            <p>Print numbers 1-30. For multiples of 3 print "Fizz", for multiples of 5 print "Buzz", for multiples of both print "FizzBuzz".</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Hint: Use a for loop and if-elif-else
+# Check if number % 15 == 0 first!"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 2: Password Validator</h3>
+                            <p>Check if a password is valid: at least 8 characters, contains a number, and contains an uppercase letter.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Test password: password = 'MyPass123'
+# Hint: Use len(), .isdigit(), .isupper()"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 3: Sum of Numbers</h3>
+                            <p>Calculate the sum of all numbers from 1 to 100 that are divisible by 3 or 5.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Hint: Use a for loop with range(1, 101)
+# Check if number % 3 == 0 or number % 5 == 0"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="module-navigation">
+                        <button class="nav-btn prev-module" data-prev="module1">← Previous Module</button>
+                        <button class="nav-btn next-module" data-next="module3">Next Module: Data Structures →</button>
+                    </div>
+                </div>
+
+                <!-- Module 3: Data Structures -->
+                <div id="module3" class="module-content">
+                    <h1>Module 3: Data Structures</h1>
+                    <p class="module-intro">Master Python's powerful built-in data structures to organize and manipulate data efficiently!</p>
+
+                    <section class="lesson">
+                        <h2>3.1 Lists - Ordered Collections</h2>
+                        <div class="explanation">
+                            <p>Lists are ordered, mutable (changeable) collections. They're like containers that can hold multiple items.</p>
+
+                            <div class="info-box">
+                                <h4>💡 Think of lists like:</h4>
+                                <p>A shopping list, playlist, or to-do list - ordered items you can add, remove, or modify!</p>
+                            </div>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Creating and Using Lists</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating lists
+fruits = ["apple", "banana", "orange"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+empty = []
+
+print("Fruits:", fruits)
+
+# Accessing elements (indexing starts at 0!)
+print("First fruit:", fruits[0])      # apple
+print("Last fruit:", fruits[-1])      # orange
+print("Second fruit:", fruits[1])     # banana
+
+# Modifying elements
+fruits[1] = "blueberry"
+print("Modified:", fruits)
+
+# Adding elements
+fruits.append("grape")           # Add to end
+print("After append:", fruits)
+
+fruits.insert(1, "mango")       # Insert at position
+print("After insert:", fruits)
+
+# Removing elements
+fruits.remove("orange")         # Remove by value
+print("After remove:", fruits)
+
+popped = fruits.pop()           # Remove and return last item
+print("Popped:", popped)
+print("After pop:", fruits)
+
+# List length
+print("Number of fruits:", len(fruits))
+
+# Check if item exists
+if "apple" in fruits:
+    print("We have apples!")</code></pre>
+                            </div>
+                            <button class="run-code" data-code="fruits = ['apple', 'banana', 'orange']\nprint('Fruits:', fruits)\nprint('First fruit:', fruits[0])\nprint('Last fruit:', fruits[-1])\nfruits[1] = 'blueberry'\nprint('Modified:', fruits)\nfruits.append('grape')\nprint('After append:', fruits)\nfruits.insert(1, 'mango')\nprint('After insert:', fruits)\nif 'apple' in fruits:\n    print('We have apples!')">▶ Run Code</button>
+                            </div>
+
+                        <div class="explanation">
+                            <h3>List Slicing</h3>
+                            <p>Extract portions of a list using slicing:</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print(numbers[2:5])      # [2, 3, 4] - from index 2 to 4
+print(numbers[:4])       # [0, 1, 2, 3] - from start to index 3
+print(numbers[6:])       # [6, 7, 8, 9] - from index 6 to end
+print(numbers[::2])      # [0, 2, 4, 6, 8] - every 2nd element
+print(numbers[::-1])     # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] - reversed!
+
+# Copying a list
+original = [1, 2, 3]
+copy = original[:]       # Creates a copy
+copy.append(4)
+print("Original:", original)  # [1, 2, 3]
+print("Copy:", copy)          # [1, 2, 3, 4]</code></pre>
+                            </div>
+                            <button class="run-code" data-code="numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nprint('Slice [2:5]:', numbers[2:5])\nprint('Slice [:4]:', numbers[:4])\nprint('Slice [6:]:', numbers[6:])\nprint('Every 2nd:', numbers[::2])\nprint('Reversed:', numbers[::-1])">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>List Methods and Operations</h3>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+
+# Sorting
+numbers.sort()                    # Sorts in place
+print("Sorted:", numbers)
+
+numbers.sort(reverse=True)        # Reverse sort
+print("Reverse sorted:", numbers)
+
+# sorted() creates a new sorted list
+original = [3, 1, 4, 1, 5]
+new_sorted = sorted(original)
+print("Original:", original)      # Unchanged
+print("New sorted:", new_sorted)
+
+# Reversing
+numbers.reverse()
+print("Reversed:", numbers)
+
+# Counting and finding
+letters = ['a', 'b', 'c', 'a', 'd', 'a']
+print("Count of 'a':", letters.count('a'))  # 3
+print("Index of 'c':", letters.index('c'))  # 2
+
+# List comprehension (advanced way to create lists!)
+squares = [x**2 for x in range(1, 6)]
+print("Squares:", squares)  # [1, 4, 9, 16, 25]
+
+# Filter even numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+evens = [x for x in numbers if x % 2 == 0]
+print("Even numbers:", evens)  # [2, 4, 6, 8, 10]</code></pre>
+                            </div>
+                            <button class="run-code" data-code="numbers = [3, 1, 4, 1, 5, 9, 2, 6]\nnumbers.sort()\nprint('Sorted:', numbers)\nsquares = [x**2 for x in range(1, 6)]\nprint('Squares:', squares)\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nevens = [x for x in numbers if x % 2 == 0]\nprint('Even numbers:', evens)">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>3.2 Tuples - Immutable Sequences</h2>
+                        <div class="explanation">
+                            <p>Tuples are like lists, but immutable (cannot be changed after creation). They're faster and protect data from modification.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Working with Tuples</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating tuples
+coordinates = (10, 20)
+rgb_color = (255, 0, 128)
+single_item = (42,)      # Note the comma!
+empty_tuple = ()
+
+print("Coordinates:", coordinates)
+
+# Accessing elements (same as lists)
+print("X coordinate:", coordinates[0])
+print("Y coordinate:", coordinates[1])
+
+# Tuple unpacking
+x, y = coordinates
+print(f"x = {x}, y = {y}")
+
+# Multiple assignment
+name, age, city = ("Alice", 25, "New York")
+print(f"{name} is {age} years old from {city}")
+
+# Tuples are immutable - this would cause an error:
+# coordinates[0] = 15  # TypeError!
+
+# But you can create a new tuple
+new_coordinates = (15, 25)
+
+# Use cases for tuples
+# 1. Returning multiple values from functions
+def get_user_info():
+    return ("Bob", 30, "Engineer")
+
+name, age, job = get_user_info()
+print(f"{name}, {age}, {job}")
+
+# 2. Dictionary keys (lists can't be keys!)
+locations = {
+    (0, 0): "Origin",
+    (1, 2): "Point A",
+    (3, 4): "Point B"
+}
+print(locations[(1, 2)])
+
+# Tuple methods
+numbers = (1, 2, 3, 2, 4, 2, 5)
+print("Count of 2:", numbers.count(2))
+print("Index of 3:", numbers.index(3))</code></pre>
+                            </div>
+                            <button class="run-code" data-code="coordinates = (10, 20)\nprint('Coordinates:', coordinates)\nx, y = coordinates\nprint(f'x = {x}, y = {y}')\nname, age, city = ('Alice', 25, 'New York')\nprint(f'{name} is {age} years old from {city}')\nnumbers = (1, 2, 3, 2, 4, 2, 5)\nprint('Count of 2:', numbers.count(2))">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>3.3 Sets - Unique Collections</h2>
+                        <div class="explanation">
+                            <p>Sets are unordered collections of unique elements. Perfect for removing duplicates and mathematical operations!</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Set Operations</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating sets
+fruits = {"apple", "banana", "orange"}
+numbers = {1, 2, 3, 4, 5}
+empty_set = set()  # Note: {} creates a dict, not a set!
+
+print("Fruits:", fruits)
+
+# Sets automatically remove duplicates
+numbers = {1, 2, 2, 3, 3, 3, 4}
+print("Numbers:", numbers)  # {1, 2, 3, 4}
+
+# Adding elements
+fruits.add("grape")
+print("After add:", fruits)
+
+# Removing elements
+fruits.remove("banana")      # Raises error if not found
+fruits.discard("cherry")     # No error if not found
+print("After remove:", fruits)
+
+# Set operations
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+# Union (all elements from both sets)
+print("Union:", set1 | set2)           # {1, 2, 3, 4, 5, 6, 7, 8}
+print("Union:", set1.union(set2))
+
+# Intersection (common elements)
+print("Intersection:", set1 & set2)    # {4, 5}
+print("Intersection:", set1.intersection(set2))
+
+# Difference (in set1 but not set2)
+print("Difference:", set1 - set2)      # {1, 2, 3}
+print("Difference:", set1.difference(set2))
+
+# Symmetric difference (in either, but not both)
+print("Sym Diff:", set1 ^ set2)        # {1, 2, 3, 6, 7, 8}
+
+# Practical example: Remove duplicates from list
+numbers_list = [1, 2, 2, 3, 4, 4, 5, 5, 5]
+unique_numbers = list(set(numbers_list))
+print("Unique:", unique_numbers)
+
+# Check membership (very fast!)
+large_set = set(range(1000000))
+print(999999 in large_set)  # True - almost instant!</code></pre>
+                            </div>
+                            <button class="run-code" data-code="fruits = {'apple', 'banana', 'orange'}\nprint('Fruits:', fruits)\nfruits.add('grape')\nprint('After add:', fruits)\nset1 = {1, 2, 3, 4, 5}\nset2 = {4, 5, 6, 7, 8}\nprint('Union:', set1 | set2)\nprint('Intersection:', set1 & set2)\nprint('Difference:', set1 - set2)\nnumbers_list = [1, 2, 2, 3, 4, 4, 5, 5, 5]\nunique = list(set(numbers_list))\nprint('Unique:', unique)">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>3.4 Dictionaries - Key-Value Pairs</h2>
+                        <div class="explanation">
+                            <p>Dictionaries store data as key-value pairs. Like a real dictionary where you look up a word (key) to get its definition (value)!</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Example: Dictionary Basics</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python"># Creating dictionaries
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grade": "A",
+    "courses": ["Math", "Physics", "CS"]
+}
+
+print("Student:", student)
+
+# Accessing values
+print("Name:", student["name"])
+print("Age:", student["age"])
+
+# Safer access with get() - doesn't crash if key missing
+print("GPA:", student.get("gpa", "Not available"))
+
+# Adding/Modifying entries
+student["gpa"] = 3.8
+student["age"] = 21
+print("Updated:", student)
+
+# Removing entries
+del student["grade"]
+removed_gpa = student.pop("gpa")
+print("Removed GPA:", removed_gpa)
+print("After removal:", student)
+
+# Dictionary methods
+print("Keys:", student.keys())
+print("Values:", student.values())
+print("Items:", student.items())
+
+# Looping through dictionaries
+for key in student:
+    print(f"{key}: {student[key]}")
+
+# Better way
+for key, value in student.items():
+    print(f"{key} = {value}")
+
+# Check if key exists
+if "name" in student:
+    print("Name exists!")
+
+# Real-world example: Word counter
+text = "hello world hello python python python"
+word_count = {}
+
+for word in text.split():
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
+
+print("Word count:", word_count)
+
+# Better way using get()
+word_count2 = {}
+for word in text.split():
+    word_count2[word] = word_count2.get(word, 0) + 1
+
+print("Word count 2:", word_count2)</code></pre>
+                            </div>
+                            <button class="run-code" data-code="student = {'name': 'Alice', 'age': 20, 'grade': 'A', 'courses': ['Math', 'Physics']}\nprint('Student:', student)\nprint('Name:', student['name'])\nstudent['gpa'] = 3.8\nprint('Updated:', student)\nfor key, value in student.items():\n    print(f'{key} = {value}')\ntext = 'hello world hello python python python'\nword_count = {}\nfor word in text.split():\n    word_count[word] = word_count.get(word, 0) + 1\nprint('Word count:', word_count)">▶ Run Code</button>
+                        </div>
+
+                        <div class="explanation">
+                            <h3>Advanced Dictionary Features</h3>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python"># Nested dictionaries
+users = {
+    "user1": {
+        "name": "Alice",
+        "age": 25,
+        "email": "alice@email.com"
+    },
+    "user2": {
+        "name": "Bob",
+        "age": 30,
+        "email": "bob@email.com"
+    }
+}
+
+print("User1 name:", users["user1"]["name"])
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(1, 6)}
+print("Squares:", squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+# Merging dictionaries (Python 3.9+)
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
+merged = dict1 | dict2
+print("Merged:", merged)
+
+# Or using update()
+dict1.update(dict2)
+print("Updated dict1:", dict1)</code></pre>
+                            </div>
+                            <button class="run-code" data-code="users = {'user1': {'name': 'Alice', 'age': 25}, 'user2': {'name': 'Bob', 'age': 30}}\nprint('User1 name:', users['user1']['name'])\nsquares = {x: x**2 for x in range(1, 6)}\nprint('Squares:', squares)\ndict1 = {'a': 1, 'b': 2}\ndict2 = {'c': 3, 'd': 4}\ndict1.update(dict2)\nprint('Updated dict1:', dict1)">▶ Run Code</button>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>3.5 Choosing the Right Data Structure</h2>
+                        <div class="explanation">
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Structure</th>
+                                    <th>Ordered?</th>
+                                    <th>Mutable?</th>
+                                    <th>Duplicates?</th>
+                                    <th>Best For</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>List</strong></td>
+                                    <td>✅ Yes</td>
+                                    <td>✅ Yes</td>
+                                    <td>✅ Yes</td>
+                                    <td>Ordered collections you'll modify</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tuple</strong></td>
+                                    <td>✅ Yes</td>
+                                    <td>❌ No</td>
+                                    <td>✅ Yes</td>
+                                    <td>Fixed data, function returns, dict keys</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Set</strong></td>
+                                    <td>❌ No</td>
+                                    <td>✅ Yes</td>
+                                    <td>❌ No</td>
+                                    <td>Unique items, fast membership testing</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dictionary</strong></td>
+                                    <td>✅ Yes (3.7+)</td>
+                                    <td>✅ Yes</td>
+                                    <td>Keys: No<br>Values: Yes</td>
+                                    <td>Key-value pairs, fast lookups</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="practice">
+                        <h2>🎯 Practice Exercises</h2>
+
+                        <div class="exercise">
+                            <h3>Exercise 1: Student Grade Manager</h3>
+                            <p>Create a dictionary of students and their grades. Calculate the average grade and find the top student.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Create a dict like: {'Alice': 95, 'Bob': 87, 'Charlie': 92}
+# Calculate average and find max"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 2: List Manipulation</h3>
+                            <p>Given a list of numbers, create three new lists: one with squares, one with evens, one with numbers > 10.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Start with: numbers = [1, 5, 8, 12, 15, 20, 3, 9]
+# Use list comprehensions!"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+
+                        <div class="exercise">
+                            <h3>Exercise 3: Set Operations</h3>
+                            <p>Create two sets of your favorite movies and a friend's favorites. Find common movies and movies only you like.</p>
+                            <div class="code-editor">
+                                <textarea class="practice-code" placeholder="Write your code here...
+# Use set operations: intersection, difference"></textarea>
+                                <button class="run-practice">▶ Run My Code</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="module-navigation">
+                        <button class="nav-btn prev-module" data-prev="module2">← Previous Module</button>
+                        <button class="nav-btn next-module" data-next="module4">Next Module: Functions →</button>
+                    </div>
+                </div>
+
+                <!-- Placeholder for remaining modules -->
+                <div id="module4" class="module-content">
+                    <h1>Module 4: Functions and Scope</h1>
+                    <p class="module-intro">Coming soon! Learn to write reusable code with functions.</p>
+                    <div class="module-navigation">
+                        <button class="nav-btn prev-module" data-prev="module3">← Previous Module</button>
+                        <button class="nav-btn next-module" data-next="module5">Next Module →</button>
+                    </div>
+                </div>
+
+                <div id="module5" class="module-content">
+                    <h1>Module 5: Object-Oriented Programming</h1>
+                    <p class="module-intro">Coming soon!</p>
+                    <div class="module-navigation">
+                        <button class="nav-btn prev-module" data-prev="module4">← Previous Module</button>
+                        <button class="nav-btn next-module" data-next="module6">Next Module →</button>
+                    </div>
+                </div>
+
+                <!-- Add placeholders for modules 6-12 -->
+                <div id="module6" class="module-content">
+                    <h1>Module 6: File Handling & Exceptions</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module7" class="module-content">
+                    <h1>Module 7: Advanced Python Concepts</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module8" class="module-content">
+                    <h1>Module 8: Working with APIs</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module9" class="module-content">
+                    <h1>Module 9: Database Integration</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module10" class="module-content">
+                    <h1>Module 10: AI & Machine Learning</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module11" class="module-content">
+                    <h1>Module 11: Web Development</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+                <div id="module12" class="module-content">
+                    <h1>Module 12: Automation & Robotics</h1>
+                    <p class="module-intro">Coming soon!</p>
+                </div>
+            </div>
+
+            <!-- Code Output Console -->
+            <div class="output-console" id="outputConsole">
+                <div class="console-header">
+                    <h3>Output</h3>
+                    <button id="clearOutput">Clear</button>
+                </div>
+                <pre id="output"></pre>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
