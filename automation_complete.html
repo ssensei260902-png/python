@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Automation Mastery - Complete Course</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>🤖 Automation Mastery</h1>
+                <p class="tagline">Automate Everything with Python</p>
+            </div>
+            <div class="module-list">
+                <h3>Automation Modules</h3>
+                <button class="module-btn active" data-module="auto1">File Automation</button>
+                <button class="module-btn" data-module="auto2">Web Automation</button>
+                <button class="module-btn" data-module="auto3">Data Processing</button>
+                <button class="module-btn" data-module="auto4">Email & Notifications</button>
+                <button class="module-btn" data-module="auto5">System Administration</button>
+                <button class="module-btn" data-module="auto6">Cloud & DevOps</button>
+                <button class="module-btn" data-module="auto7">IoT & Hardware</button>
+                <button class="module-btn" data-module="auto8">Real Projects</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Module Auto1: File Automation -->
+                <div id="auto1" class="module-content active">
+                    <h1>File System Automation</h1>
+                    <p class="module-intro">Master file and folder automation - organize, backup, and process files automatically!</p>
+
+                    <section class="lesson">
+                        <h2>1. Automated File Organizer</h2>
+                        <div class="explanation">
+                            <p>Never manually organize files again! This script automatically sorts files by type.</p>
+                        </div>
+
+                        <div class="code-example">
+                            <div class="example-header">
+                                <h4>Complete File Organizer</h4>
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="python">import os
+import shutil
+from pathlib import Path
+
+def organize_files(directory):
+    """Automatically organize files by extension"""
+
+    # Define file categories
+    categories = {
+        'Images': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'],
+        'Documents': ['.pdf', '.doc', '.docx', '.txt', '.xlsx', '.csv', '.pptx'],
+        'Videos': ['.mp4', '.avi', '.mkv', '.mov', '.flv', '.wmv'],
+        'Audio': ['.mp3', '.wav', '.flac', '.aac', '.ogg', '.m4a'],
+        'Archives': ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2'],
+        'Code': ['.py', '.js', '.html', '.css', '.java', '.cpp', '.h'],
+        'Executables': ['.exe', '.msi', '.dmg', '.deb', '.rpm', '.app']
+    }
+
+    path = Path(directory)
+    organized_count = 0
+
+    # Create category folders
+    for category in categories.keys():
+        (path / category).mkdir(exist_ok=True)
+
+    # Organize files
+    for item in path.iterdir():
+        if item.is_file():
+            file_ext = item.suffix.lower()
+
+            # Find category
+            moved = False
+            for category, extensions in categories.items():
+                if file_ext in extensions:
+                    dest = path / category / item.name
+
+                    # Handle duplicates
+                    counter = 1
+                    original_dest = dest
+                    while dest.exists():
+                        dest = original_dest.with_name(
+                            f"{original_dest.stem}_{counter}{original_dest.suffix}"
+                        )
+                        counter += 1
+
+                    shutil.move(str(item), str(dest))
+                    print(f"✓ Moved: {item.name} → {category}/")
+                    organized_count += 1
+                    moved = True
+                    break
+
+            # Unknown file types go to "Other"
+            if not moved:
+                other_path = path / 'Other'
+                other_path.mkdir(exist_ok=True)
+                dest = other_path / item.name
+                shutil.move(str(item), str(dest))
+                organized_count += 1
+
+    print(f"\n✨ Organized {organized_count} files!")
+    return organized_count
+
+# Example usage
+# organize_files("/Users/yourname/Downloads")</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>2. Smart Backup System</h2>
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">import shutil
+from datetime import datetime
+from pathlib import Path
+
+class SmartBackup:
+    def __init__(self, source, backup_location):
+        self.source = Path(source)
+        self.backup_location = Path(backup_location)
+        self.backup_location.mkdir(exist_ok=True)
+
+    def create_backup(self, compression=True):
+        """Create timestamped backup"""
+
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        backup_name = f"backup_{self.source.name}_{timestamp}"
+
+        if compression:
+            # Create compressed archive
+            archive_path = self.backup_location / backup_name
+            shutil.make_archive(
+                str(archive_path),
+                'zip',
+                self.source
+            )
+            print(f"✓ Backup created: {archive_path}.zip")
+            return f"{archive_path}.zip"
+        else:
+            # Copy folder
+            dest = self.backup_location / backup_name
+            shutil.copytree(self.source, dest)
+            print(f"✓ Backup created: {dest}")
+            return dest
+
+    def rotate_backups(self, keep_last=5):
+        """Keep only the last N backups"""
+
+        backups = sorted(
+            self.backup_location.glob('backup_*'),
+            key=lambda x: x.stat().st_mtime,
+            reverse=True
+        )
+
+        for old_backup in backups[keep_last:]:
+            if old_backup.is_file():
+                old_backup.unlink()
+            else:
+                shutil.rmtree(old_backup)
+            print(f"✗ Removed old backup: {old_backup.name}")
+
+    def scheduled_backup(self):
+        """Create backup and maintain rotation"""
+
+        self.create_backup(compression=True)
+        self.rotate_backups(keep_last=7)  # Keep last 7 backups
+
+# Usage
+# backup = SmartBackup('/path/to/important/folder', '/path/to/backups')
+# backup.scheduled_backup()</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>3. Batch File Renamer</h2>
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">from pathlib import Path
+import re
+
+class BatchRenamer:
+    def __init__(self, directory):
+        self.directory = Path(directory)
+
+    def rename_with_pattern(self, old_pattern, new_pattern):
+        """Rename files matching a pattern"""
+
+        renamed = 0
+        for file in self.directory.iterdir():
+            if file.is_file() and old_pattern in file.name:
+                new_name = file.name.replace(old_pattern, new_pattern)
+                new_path = self.directory / new_name
+                file.rename(new_path)
+                print(f"{file.name} → {new_name}")
+                renamed += 1
+
+        print(f"\nRenamed {renamed} files")
+        return renamed
+
+    def sequential_rename(self, prefix="file", start=1, padding=3):
+        """Rename files sequentially"""
+
+        files = sorted(self.directory.iterdir())
+        renamed = 0
+
+        for i, file in enumerate(files, start=start):
+            if file.is_file():
+                extension = file.suffix
+                new_name = f"{prefix}_{str(i).zfill(padding)}{extension}"
+                new_path = self.directory / new_name
+                file.rename(new_path)
+                print(f"{file.name} → {new_name}")
+                renamed += 1
+
+        print(f"\nRenamed {renamed} files")
+        return renamed
+
+    def add_prefix_suffix(self, prefix="", suffix=""):
+        """Add prefix or suffix to all files"""
+
+        renamed = 0
+        for file in self.directory.iterdir():
+            if file.is_file():
+                new_name = f"{prefix}{file.stem}{suffix}{file.suffix}"
+                new_path = self.directory / new_name
+                file.rename(new_path)
+                print(f"{file.name} → {new_name}")
+                renamed += 1
+
+        return renamed
+
+    def clean_filenames(self):
+        """Remove special characters and normalize names"""
+
+        renamed = 0
+        for file in self.directory.iterdir():
+            if file.is_file():
+                # Remove special chars, replace spaces with underscores
+                clean_name = re.sub(r'[^\w\s.-]', '', file.stem)
+                clean_name = clean_name.replace(' ', '_')
+                new_name = f"{clean_name}{file.suffix}"
+
+                if new_name != file.name:
+                    new_path = self.directory / new_name
+                    file.rename(new_path)
+                    print(f"{file.name} → {new_name}")
+                    renamed += 1
+
+        print(f"\nCleaned {renamed} filenames")
+        return renamed
+
+# Usage examples
+# renamer = BatchRenamer('/path/to/photos')
+# renamer.sequential_rename(prefix='photo', start=1)
+# renamer.clean_filenames()</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>4. Duplicate File Finder & Remover</h2>
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">import hashlib
+from pathlib import Path
+from collections import defaultdict
+
+class DuplicateFinder:
+    def __init__(self, directory):
+        self.directory = Path(directory)
+        self.duplicates = defaultdict(list)
+
+    def file_hash(self, filepath, chunk_size=8192):
+        """Calculate MD5 hash of file"""
+
+        hasher = hashlib.md5()
+        with open(filepath, 'rb') as f:
+            while chunk := f.read(chunk_size):
+                hasher.update(chunk)
+        return hasher.hexdigest()
+
+    def find_duplicates(self, recursive=True):
+        """Find all duplicate files"""
+
+        print("Scanning for duplicates...")
+        hashes = {}
+
+        # Get all files
+        pattern = '**/*' if recursive else '*'
+        files = [f for f in self.directory.glob(pattern) if f.is_file()]
+
+        total_files = len(files)
+        for i, file in enumerate(files, 1):
+            print(f"Checking {i}/{total_files}: {file.name}")
+
+            try:
+                file_hash_value = self.file_hash(file)
+
+                if file_hash_value in hashes:
+                    self.duplicates[file_hash_value].append(file)
+                else:
+                    hashes[file_hash_value] = file
+
+            except Exception as e:
+                print(f"Error processing {file}: {e}")
+
+        # Add originals to duplicate lists
+        for hash_value, duplicate_files in self.duplicates.items():
+            duplicate_files.insert(0, hashes[hash_value])
+
+        return self.duplicates
+
+    def report_duplicates(self):
+        """Print duplicate files report"""
+
+        if not self.duplicates:
+            print("\n✓ No duplicates found!")
+            return
+
+        total_duplicates = sum(len(files) - 1 for files in self.duplicates.values())
+        total_space = 0
+
+        print(f"\n⚠️  Found {total_duplicates} duplicate files:")
+        print("=" * 70)
+
+        for hash_value, files in self.duplicates.items():
+            file_size = files[0].stat().st_size
+            duplicates_space = file_size * (len(files) - 1)
+            total_space += duplicates_space
+
+            print(f"\nDuplicate group (Size: {file_size:,} bytes):")
+            for i, file in enumerate(files):
+                status = "ORIGINAL" if i == 0 else "DUPLICATE"
+                print(f"  [{status}] {file}")
+
+        print("=" * 70)
+        print(f"Total wasted space: {total_space:,} bytes ({total_space/1024**2:.2f} MB)")
+
+    def remove_duplicates(self, keep_first=True, dry_run=True):
+        """Remove duplicate files"""
+
+        if not self.duplicates:
+            print("No duplicates to remove")
+            return 0
+
+        removed_count = 0
+        freed_space = 0
+
+        for files in self.duplicates.values():
+            # Keep first or last file
+            files_to_remove = files[1:] if keep_first else files[:-1]
+
+            for file in files_to_remove:
+                file_size = file.stat().st_size
+
+                if dry_run:
+                    print(f"[DRY RUN] Would delete: {file}")
+                else:
+                    file.unlink()
+                    print(f"✗ Deleted: {file}")
+
+                removed_count += 1
+                freed_space += file_size
+
+        mode = "Would free" if dry_run else "Freed"
+        print(f"\n{mode} {freed_space:,} bytes ({freed_space/1024**2:.2f} MB)")
+        print(f"{removed_count} files {('would be ' if dry_run else '')}removed")
+
+        return removed_count
+
+# Usage
+# finder = DuplicateFinder('/path/to/folder')
+# finder.find_duplicates()
+# finder.report_duplicates()
+# finder.remove_duplicates(dry_run=True)  # Test first!
+# finder.remove_duplicates(dry_run=False) # Actually delete</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="lesson">
+                        <h2>5. Automated File Monitoring</h2>
+                        <div class="code-example">
+                            <div class="code-block">
+                                <pre><code class="python">import time
+from pathlib import Path
+from datetime import datetime
+
+class FileMonitor:
+    def __init__(self, directory):
+        self.directory = Path(directory)
+        self.tracked_files = {}
+        self.scan_directory()
+
+    def scan_directory(self):
+        """Scan and record all files"""
+
+        self.tracked_files = {}
+        for file in self.directory.rglob('*'):
+            if file.is_file():
+                self.tracked_files[str(file)] = file.stat().st_mtime
+
+    def detect_changes(self):
+        """Detect new, modified, or deleted files"""
+
+        current_files = {}
+        changes = {
+            'new': [],
+            'modified': [],
+            'deleted': []
+        }
+
+        # Check for new and modified files
+        for file in self.directory.rglob('*'):
+            if file.is_file():
+                filepath = str(file)
+                current_files[filepath] = file.stat().st_mtime
+
+                if filepath not in self.tracked_files:
+                    changes['new'].append(filepath)
+                elif current_files[filepath] != self.tracked_files[filepath]:
+                    changes['modified'].append(filepath)
+
+        # Check for deleted files
+        for filepath in self.tracked_files:
+            if filepath not in current_files:
+                changes['deleted'].append(filepath)
+
+        # Update tracking
+        self.tracked_files = current_files
+
+        return changes
+
+    def monitor(self, interval=5, callback=None):
+        """Continuously monitor directory"""
+
+        print(f"Monitoring {self.directory}")
+        print("Press Ctrl+C to stop\n")
+
+        try:
+            while True:
+                changes = self.detect_changes()
+
+                if any(changes.values()):
+                    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    print(f"\n[{timestamp}] Changes detected:")
+
+                    for new_file in changes['new']:
+                        print(f"  + NEW: {new_file}")
+
+                    for mod_file in changes['modified']:
+                        print(f"  ~ MODIFIED: {mod_file}")
+
+                    for del_file in changes['deleted']:
+                        print(f"  - DELETED: {del_file}")
+
+                    if callback:
+                        callback(changes)
+
+                time.sleep(interval)
+
+        except KeyboardInterrupt:
+            print("\nMonitoring stopped")
+
+# Usage
+# def on_change(changes):
+#     # Custom action when files change
+#     if changes['new']:
+#         print("Processing new files...")
+#         # Your automation here
+#
+# monitor = FileMonitor('/path/to/watch')
+# monitor.monitor(interval=5, callback=on_change)</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="best-practice">
+                        <h3>🎯 Real-World File Automation Projects</h3>
+                        <ul>
+                            <li><strong>Photo Organizer:</strong> Sort photos by date, camera, location</li>
+                            <li><strong>Download Manager:</strong> Auto-organize downloads folder</li>
+                            <li><strong>Backup Scheduler:</strong> Automated daily/weekly backups</li>
+                            <li><strong>Log File Manager:</strong> Archive and compress old logs</li>
+                            <li><strong>Media Library:</strong> Organize music/video collections</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Additional automation modules would continue here -->
+                <!-- This is just Module 1 - File Automation -->
+                <!-- Modules 2-8 would cover web, data, email, system, cloud, IoT, and projects -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple module switching for this standalone file
+        document.querySelectorAll('.module-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In full implementation, would switch module content
+                alert(`Module ${btn.textContent} - Full content in development!`);
+            });
+        });
+    </script>
+</body>
+</html>

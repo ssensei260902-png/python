@@ -1,8 +1,16 @@
 # 🐍 Python Mastery: From Zero to Hero
 
-**A Comprehensive Interactive Python Learning Platform**
+**A Comprehensive Interactive Python Learning Platform with Focus on Automation**
 
-Transform from a complete beginner to a world-class Python developer with this interactive, web-based learning platform. Designed specifically for non-coders, this course takes you through every concept you need to master Python and use it for APIs, robotics, AI, and more!
+Transform from a complete beginner to a world-class Python developer with this interactive, web-based learning platform. Designed specifically for non-coders, this course takes you through every concept you need to master Python and use it for automation, APIs, robotics, AI, web development, and more!
+
+## 🤖 **NEW: Extensive Automation Content!**
+
+This platform now includes comprehensive automation training:
+- **300+ pages** of automation guides and tutorials
+- **10+ ready-to-use** automation scripts
+- **Real-world projects** you can deploy today
+- File automation, web scraping, email automation, system monitoring, and more!
 
 ---
 
@@ -17,7 +25,71 @@ Transform from a complete beginner to a world-class Python developer with this i
 
 ---
 
-## 📚 Course Curriculum
+## 🎯 Complete File Structure
+
+```
+python-mastery/
+├── index.html                  # Main platform (Modules 1-12)
+├── modules_complete.html       # Modules 4-5 (Functions, OOP)
+├── modules_advanced.html       # Modules 6-8 (Files, Advanced, APIs)
+├── modules_final.html          # Modules 9-12 (Databases, AI, Web, Robotics)
+├── automation_complete.html    # 🆕 Comprehensive automation course
+├── automation_scripts.py       # 🆕 10+ ready-to-use scripts
+├── AUTOMATION_GUIDE.md        # 🆕 300+ page automation guide
+├── styles.css                  # Professional styling
+├── script.js                   # Interactive functionality
+└── README.md                   # This file
+```
+
+---
+
+## 🤖 Automation Resources (NEW!)
+
+### Automation Scripts (`automation_scripts.py`)
+Ready-to-use Python scripts for:
+
+1. **Automated File Organizer** - Sort files by type automatically
+2. **Smart Backup System** - Timestamped backups with rotation
+3. **Duplicate File Finder** - Find and remove duplicates
+4. **Batch File Renamer** - Rename hundreds of files instantly
+5. **Automated Email Sender** - Send emails with attachments
+6. **Directory Monitor** - Watch folders for changes
+7. **System Cleanup** - Delete old files automatically
+8. **Screenshot Organizer** - Organize by date
+9. **CSV Data Processor** - Merge, clean, process data
+10. **Task Scheduler** - Schedule automated tasks
+
+**Run immediately:**
+```bash
+python automation_scripts.py
+```
+
+### Automation Guide (`AUTOMATION_GUIDE.md`)
+Comprehensive guide covering:
+
+- **File System Automation** - Organize, backup, rename, monitor files
+- **Web Scraping Automation** - Extract data from websites
+- **Excel/CSV Automation** - Process spreadsheets automatically
+- **PDF Automation** - Merge, split, extract text
+- **Email Automation** - Bulk emails, reports, notifications
+- **System Monitoring** - CPU, memory, disk usage alerts
+- **Database Automation** - Backups, cleanup, reports
+- **Complete Projects** - Social media automation, data pipelines, and more
+
+### Automation Web Course (`automation_complete.html`)
+Interactive browser-based course with 8 modules:
+1. File System Automation
+2. Web Automation & Scraping
+3. Data Processing Automation
+4. Email & Notifications
+5. System Administration
+6. Cloud & DevOps Automation
+7. IoT & Hardware Control
+8. Real-World Projects
+
+---
+
+## 📚 Core Python Curriculum
 
 ### 🎯 Beginner Level
 1. **Python Fundamentals** - Variables, data types, operators, strings
